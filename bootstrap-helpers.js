@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* BootStrap helper functions. Mostly taken from the Bootstrap examples. */
+
 export const getStoredTheme = () => localStorage.getItem("theme");
 export const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
 

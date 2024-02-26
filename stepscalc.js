@@ -1,6 +1,6 @@
 /* eslint-env browser */
-/* global dateFns */
 
+import * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
 import * as bs from "./bootstrap-helpers.js";
 
 /**
@@ -20,7 +20,7 @@ function calc() {
     );
 
     // Calculate
-    const today = dateFns.parse(form.elements.today.value);
+    const today = dateFns.parseISO(form.elements.today.value);
     if (dateFns.isValid(today)) {
       const monthStart = dateFns.startOfMonth(today);
       const monthEnd = dateFns.endOfMonth(today);
@@ -34,12 +34,25 @@ function calc() {
       const dayToComplete = dateFns.addDays(today, projDaysRemain);
       const msgEl = document.getElementById("message");
       if (Number.isFinite(avgStepsPerDay) && projDaysRemain > 0) {
-        msgEl.innerText = `At your current rate of ${Math.ceil(
-          avgStepsPerDay
-        ).toLocaleString()} steps per day, you will complete your steps in ${projDaysRemain.toLocaleString()} days: ${dayToComplete.toLocaleDateString(
+        const avgStepsPerDayStr = Math.ceil(avgStepsPerDay).toLocaleString(
           undefined,
-          { weekday: "long", day: "numeric", month: "long", year: "numeric" }
-        )}.`;
+          {
+            maximumFractionDigits: 0
+          }
+        );
+        const projDaysRemainStr = projDaysRemain.toLocaleString(undefined, {
+          maximumFractionDigits: 0
+        });
+        const dayToCompleteStr = dayToComplete.toLocaleDateString(undefined, {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+        msgEl.innerText =
+          `At your current rate of ${avgStepsPerDayStr} steps per day` +
+          `, you will complete your steps in ${projDaysRemainStr} days: ` +
+          `${dayToCompleteStr}.`;
       } else if (projDaysRemain <= 0) {
         msgEl.innerText =
           "Congratulations, you are done with your steps for the month!";
@@ -65,6 +78,10 @@ function calc() {
   }
 }
 
+/**
+ * Restore the saved step goal from localStorage
+ * @returns {void}
+ */
 function restoreSavedGoal() {
   const savedGoal = Number.parseInt(localStorage.getItem("steps_required"), 10);
   if (Number.isInteger(savedGoal)) {
@@ -83,7 +100,7 @@ function init() {
 
   // Fill in defaults
   const form = document.getElementById("calc-form");
-  form.elements.today.value = dateFns.format(new Date(), "YYYY-MM-DD");
+  form.elements.today.value = dateFns.format(new Date(), "yyyy-MM-dd");
 
   // Wire up event handlers
   document
