@@ -6,11 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://penguinofthunder.github.io/projects/stepscalc/stepscalc.html",
+  "repository": {
+    "url": "https://github.com/PenguinOfThunder/stepscalc.git"
+  },
   "author": {
     "name": "PenguinOfthunder",
     "url": "https://github.com/PenguinOfThunder"
   },
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
