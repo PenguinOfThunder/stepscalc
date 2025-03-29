@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-env browser */
-
+import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/+esm';
 import * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
 import ChainedBackend from "https://cdn.jsdelivr.net/npm/i18next-chained-backend@4.6.2/+esm";
 import LocalStorageBackend from "https://cdn.jsdelivr.net/npm/i18next-localstorage-backend@4.2.0/+esm";
