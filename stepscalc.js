@@ -1,12 +1,13 @@
+/* eslint-disable max-len */
 /* eslint-env browser */
 
 import * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
-import ChainedBackend from 'https://cdn.jsdelivr.net/npm/i18next-chained-backend@4.6.2/+esm';
-import LocalStorageBackend from 'https://cdn.jsdelivr.net/npm/i18next-localstorage-backend@4.2.0/+esm';
-import HttpBackend from 'https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm';
-import i18nextBrowserLanguagedetector from 'https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@8.0.4/+esm'
-import i18next from 'https://cdn.jsdelivr.net/npm/i18next@24.2.3/+esm'
-import locI18next from 'https://cdn.jsdelivr.net/npm/loc-i18next@0.1.6/+esm';
+import ChainedBackend from "https://cdn.jsdelivr.net/npm/i18next-chained-backend@4.6.2/+esm";
+import LocalStorageBackend from "https://cdn.jsdelivr.net/npm/i18next-localstorage-backend@4.2.0/+esm";
+import HttpBackend from "https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm";
+import i18nextBrowserLanguageDetector from "https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@8.0.4/+esm"
+import i18next from "https://cdn.jsdelivr.net/npm/i18next@24.2.3/+esm"
+import locI18next from "https://cdn.jsdelivr.net/npm/loc-i18next@0.1.6/+esm";
 
 import {
   followColorScheme,
@@ -15,59 +16,60 @@ import {
   setStoredTheme
 } from "./bootstrap-helpers.js";
 
-/*
- TODO: 
- - Load translations dynamically
- - Match options to auto-detected values
- - Add more languages
+/**
+ * Handles the language change event and updates the UI accordingly.
+ * @returns {void}
  */
-
-function handle_lang_change(lng) {
-  console.log(`Language is now ${lng}`);
+function handleLanguageChanged() {
   locI18next.init(i18next, {
-    selectorAttr: 'data-i18n'
+    selectorAttr: "data-i18n"
   })("*[data-i18n]");
   calc();
 }
 
-function init_lang() {
-  // Localize  
+/**
+ * Initializes the language settings for the application.
+ * Sets up i18next with chained backends, language detection, and localization.
+ * @returns {void}
+ */
+function initI18n() {
+  // Localize
   i18next
-    .use(i18nextBrowserLanguagedetector)
+    .use(i18nextBrowserLanguageDetector)
     .use(ChainedBackend)
     .init({
-      "debug": true,
-      // "lng": "cimode",
+      "debug": false, // toggle for development
+      // "lng": "cimode", // enable for translation
       // appendNamespaceToCIMode: true,
       fallbackLng: "en-US",
       // nonExplicitSupportedLngs: true,
-      "supportedLngs": ["en-US", "nb-NO"],
+      "supportedLngs": ["en-US", "nb-NO", "es-ES"],
       "preload": ["en-US"],
-      partialBundledLanguages: true,
+      "partialBundledLanguages": true,
       "resources": {},
       // Chained backends:
       "backend": {
-        backends: [
+        "backends": [
           LocalStorageBackend,
           HttpBackend
         ],
-        backendOptions: [
+        "backendOptions": [
           // local storage
           {
-            debug: true,
-            expirationTime: 1 * 24 * 60 * 60 * 1000 // 1 day
+            // "debug": true,
+            "expirationTime": 1 * 24 * 60 * 60 * 1000 // 1 day
           },
           // http
           {
-            debug: true,
-            "loadPath": 'locales/{{lng}}/{{ns}}.json',
+            // "debug": true,
+            "loadPath": "locales/{{lng}}/{{ns}}.json",
             "crossDomain": true,
           }
         ]
       }
-    }).then(_ => {
-      i18next.on('languageChanged', handle_lang_change);
-      window.i18next = i18next;//debugging
+    }).then(() => {
+      i18next.on("languageChanged", handleLanguageChanged);
+      // window.i18next = i18next;// for interactive debugging
       calc();// force update of calculated text
     });
 }
@@ -104,13 +106,13 @@ function calc() {
       const dayToComplete = dateFns.addDays(today, projDaysRemain);
       const msgEl = document.getElementById("message");
       if (Number.isFinite(avgStepsPerDay) && projDaysRemain > 0) {
-        msgEl.innerText = i18next.t('predicted_days.text',
+        msgEl.innerText = i18next.t("predicted_days.text",
           {
             avgStepsPerDay,
             projDaysRemain,
             dayToComplete,
             formatParams: {
-              projDaysRemain: { style: 'long', numeric: "auto" },
+              projDaysRemain: { style: "long", numeric: "auto" },
               dayToComplete: {
                 weekday: "long",
                 day: "numeric",
@@ -167,7 +169,7 @@ function init() {
     setTheme(getPreferredTheme());
     followColorScheme();
 
-    init_lang();
+    initI18n();
 
     // Fill in defaults
     /** @type {HTMLFormElement} */
