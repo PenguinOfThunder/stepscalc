@@ -1,0 +1,32 @@
+{
+    "steps_one": "skritt",
+    "steps_other": "skritt",
+    "days_one": "dag",
+    "days_other": "dager",
+    "app.title": "Skrittkalkulator",
+    "options.title": "Valg",
+    "today.label": "Dagens dato",
+    "today.placeholder": "dd.mm.åååå",
+    "steps_completed.label": "Skritt tatt denne måned",
+    "steps_required.label": "Månedlig skrittmål",
+    "steps_remaining.label": "Skritt gjenstående denne måned",
+    "steps_remaining_per_day.label": "Daglige skritt gjenstående denne måned",
+    "calc-btn.label": "Kalkulér",
+    "theme.label": "Tema",
+    "theme.auto": "Automatisk",
+    "theme.light": "Lyst",
+    "theme.dark": "Mørkt",
+    "monthly_step_goal.label": "Månedlig skrittmål",
+    "close_btn.label": "Lukk",
+    "hint.text": "Hint: Fyll ut skjemaet og trykk på Kalkulér",
+    "predicted_days.text": "Med ditt gjennomsnitt på {{avgStepsPerDay, number(maximumFractionDigits:0)}} skritt per dag, vil du bli ferdig med skrittene {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
+    "congrats.text": "Gratulerer, du er ferdig med skrittene for denne måneden!",
+    "not.available": "Udefinert",
+    "app-lang": {
+        "label": "Språk",
+        "options": {
+            "en-US": "Amerikansk engelsk",
+            "nb-NO": "Norsk bokmål"
+        }
+    }
+}

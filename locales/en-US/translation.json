@@ -1,0 +1,32 @@
+{
+    "steps_one": "step",
+    "steps_other": "steps",
+    "days_one": "day",
+    "days_other": "days",
+    "app.title": "Steps Calculator",
+    "options.title": "Options",
+    "today.label": "Today's Date",
+    "today.placeholder": "mm/dd/yyyy",
+    "steps_completed.label": "Steps Completed This Month",
+    "steps_required.label": "Monthly Steps Goal",
+    "steps_remaining.label": "Steps Remaining This Month",
+    "steps_remaining_per_day.label": "Daily Steps Remaining This Month",
+    "calc-btn.label": "Calculate",
+    "theme.label": "Theme",
+    "theme.auto": "Automatic",
+    "theme.light": "Light",
+    "theme.dark": "Dark",
+    "monthly_step_goal.label": "Monthly step goal",
+    "close_btn.label": "Close",
+    "hint.text": "Hint: Fill in the form and press Calculate",
+    "predicted_days.text": "At your current rate of {{avgStepsPerDay, number(maximumFractionDigits:0)}} steps per day, you will complete your steps {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
+    "congrats.text": "Congratulations, you are done with your steps for the month!",
+    "not.available": "N/A",
+    "app-lang": {
+        "label": "Language",
+        "options": {
+            "en-US": "American English",
+            "nb-NO": "Norwegian Bokmål"
+        }
+    }
+}

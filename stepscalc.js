@@ -1,12 +1,76 @@
 /* eslint-env browser */
 
 import * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
+import ChainedBackend from 'https://cdn.jsdelivr.net/npm/i18next-chained-backend@4.6.2/+esm';
+import LocalStorageBackend from 'https://cdn.jsdelivr.net/npm/i18next-localstorage-backend@4.2.0/+esm';
+import HttpBackend from 'https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm';
+import i18nextBrowserLanguagedetector from 'https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@8.0.4/+esm'
+import i18next from 'https://cdn.jsdelivr.net/npm/i18next@24.2.3/+esm'
+import locI18next from 'https://cdn.jsdelivr.net/npm/loc-i18next@0.1.6/+esm';
+
 import {
   followColorScheme,
   getPreferredTheme,
   setTheme,
   setStoredTheme
 } from "./bootstrap-helpers.js";
+
+/*
+ TODO: 
+ - Load translations dynamically
+ - Match options to auto-detected values
+ - Add more languages
+ */
+
+function handle_lang_change(lng) {
+  console.log(`Language is now ${lng}`);
+  locI18next.init(i18next, {
+    selectorAttr: 'data-i18n'
+  })("*[data-i18n]");
+  calc();
+}
+
+function init_lang() {
+  // Localize  
+  i18next
+    .use(i18nextBrowserLanguagedetector)
+    .use(ChainedBackend)
+    .init({
+      "debug": true,
+      // "lng": "cimode",
+      // appendNamespaceToCIMode: true,
+      fallbackLng: "en-US",
+      // nonExplicitSupportedLngs: true,
+      "supportedLngs": ["en-US", "nb-NO"],
+      "preload": ["en-US"],
+      partialBundledLanguages: true,
+      "resources": {},
+      // Chained backends:
+      "backend": {
+        backends: [
+          LocalStorageBackend,
+          HttpBackend
+        ],
+        backendOptions: [
+          // local storage
+          {
+            debug: true,
+            expirationTime: 1 * 24 * 60 * 60 * 1000 // 1 day
+          },
+          // http
+          {
+            debug: true,
+            "loadPath": 'locales/{{lng}}/{{ns}}.json',
+            "crossDomain": true,
+          }
+        ]
+      }
+    }).then(_ => {
+      i18next.on('languageChanged', handle_lang_change);
+      window.i18next = i18next;//debugging
+      calc();// force update of calculated text
+    });
+}
 
 /**
  * Update calculated values
@@ -40,41 +104,38 @@ function calc() {
       const dayToComplete = dateFns.addDays(today, projDaysRemain);
       const msgEl = document.getElementById("message");
       if (Number.isFinite(avgStepsPerDay) && projDaysRemain > 0) {
-        const avgStepsPerDayStr = Math.ceil(avgStepsPerDay).toLocaleString(
-          undefined,
+        msgEl.innerText = i18next.t('predicted_days.text',
           {
-            maximumFractionDigits: 0
+            avgStepsPerDay,
+            projDaysRemain,
+            dayToComplete,
+            formatParams: {
+              projDaysRemain: { style: 'long', numeric: "auto" },
+              dayToComplete: {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+              }
+            }
           }
         );
-        const projDaysRemainStr = projDaysRemain.toLocaleString(undefined, {
-          maximumFractionDigits: 0
-        });
-        const dayToCompleteStr = dayToComplete.toLocaleDateString(undefined, {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        });
-        msgEl.innerText =
-          `At your current rate of ${avgStepsPerDayStr} steps per day` +
-          ", you will complete your steps in " +
-          `${projDaysRemainStr} ${projDaysRemain === 1 ? "day" : "days"}: ` +
-          `${dayToCompleteStr}.`;
       } else if (projDaysRemain <= 0) {
-        msgEl.innerText =
-          "Congratulations, you are done with your steps for the month!";
+        // "Congratulations, you are done with your steps for the month!";
+        msgEl.innerText = i18next.t("congrats.text");
       } else {
-        msgEl.innerText = "Hint: Fill in the form and press Calculate";
+        // "Hint: Fill in the form and press Calculate";
+        msgEl.innerText = i18next.t("hint.text");
       }
       // set form values
       form.elements.steps_remaining.value = Number.isFinite(stepsRemaining)
         ? `${stepsRemaining.toLocaleString()}`
-        : "N/A";
+        : i18next.t("not.available");
       form.elements.steps_remaining_per_day.value = Number.isFinite(
         stepsRemainingPerDay
       )
         ? `${stepsRemainingPerDay.toLocaleString()}`
-        : "N/A";
+        : i18next.t("not.available");
     } else {
       form.elements.steps_remaining.value = "";
       form.elements.steps_remaining_per_day.value = "";
@@ -106,6 +167,8 @@ function init() {
     setTheme(getPreferredTheme());
     followColorScheme();
 
+    init_lang();
+
     // Fill in defaults
     /** @type {HTMLFormElement} */
     const form = document.getElementById("calc-form");
@@ -126,6 +189,12 @@ function init() {
         const form = document.getElementById("calc-form");
         form.elements.steps_required.value = newVal;
         localStorage.setItem("steps_required", newVal);
+      });
+    document
+      .getElementById("app-lang-select")
+      .addEventListener("change", (e) => {
+        const newVal = e.target.value;
+        i18next.changeLanguage(newVal);
       });
 
     const optionsModal = document.getElementById("optionsModal");
