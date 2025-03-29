@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="utf-8" />
@@ -22,29 +22,29 @@
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">
           <span class="bi-person-walking text-primary-emphasis"></span>
-          Steps Calculator</span>
+          <span data-i18n="app.title">Steps Calculator</span>
+        </span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
-            <button type="button" class="nav-item btn" data-bs-toggle="modal" data-bs-target="#optionsModal"
+            <button type="button" class="nav-item btn" data-bs-toggle="modal" data-bs-target="#optionsModal" data-i18n="[title]options.title"
               title="Options">
               <i class="bi-sliders"></i>
             </button>
           </ul>
         </div>
-
-
       </div>
     </nav>
   </header>
   <main>
     <form id="calc-form" class="form needs-validation" action="#" method="post" novalidate>
       <div class="input-group mb-1 form-floating">
-        <input class="form-control" id="today" name="today" type="date" value="" required placeholder="mm/dd/yyyy" />
-        <label class="form-label" for="today">
+        <input class="form-control" id="today" name="today" type="date" value="" required placeholder="mm/dd/yyyy"
+        data-i18n="[placeholder]today.placeholder" />
+        <label class="form-label" for="today" data-i18n="today.label">
           Today's Date
         </label>
         <span class="input-group-text"><i class="bi-calendar-date"></i></span>
@@ -52,7 +52,7 @@
       <div class="input-group form-floating mb-1">
         <input class="form-control" id="steps_completed" name="steps_completed" type="number" value="" min="0" step="1"
           required placeholder="nnnnnn" autofocus />
-        <label class="form-label" for="steps_completed">
+        <label class="form-label" for="steps_completed" data-i18n="steps_completed.label">
           Steps Completed This Month
         </label>
         <span class="input-group-text"><i class="bi-123"></i></span>
@@ -60,28 +60,28 @@
       <div class="input-group form-floating mb-1">
         <input class="form-control" id="steps_required" name="steps_required" type="number" value="180000" min="0"
           step="1000" required placeholder="nnnnnn" />
-        <label class="form-label" for="steps_required">
+        <label class="form-label" for="steps_required" data-i18n="steps_required.label">
           Monthly Steps Goal
         </label>
         <span class="input-group-text"><i class="bi-123"></i></span>
       </div>
       <div class="input-group form-floating mb-1">
         <input class="form-control" id="steps_remaining" name="steps_remaining" readonly placeholder="nnnnnn" />
-        <label class="form-label" for="steps_remaining">
+        <label class="form-label" for="steps_remaining" data-i18n="steps_remaining.label">
           Steps Remaining This Month
         </label>
       </div>
       <div class="input-group form-floating mb-1">
         <input class="form-control" id="steps_remaining_per_day" name="steps_remaining_per_day" readonly
           placeholder="nnnn" />
-        <label class="form-label" for="steps_remaining_per_day">
+        <label class="form-label" for="steps_remaining_per_day" data-i18n="steps_remaining_per_day.label">
           Daily Steps Remaining This Month
         </label>
       </div>
       <div class="mt-2 mb-2">
         <button id="calc-btn" class="btn btn-primary" type="submit">
           <span class="bi-calculator"></span>
-          Calculate
+          <span data-i18n="calc-btn.label">Calculate</span>
         </button>
       </div>
     </form>
@@ -98,22 +98,30 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Options</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" data-i18n="options.title">Options</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="[aria-label]close_btn.label" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="form" id="optionsForm">
             <div class="form-group">
-              <label for="daily-step-goal" class="form-label">Monthly step goal</label>
+              <label for="daily-step-goal" class="form-label" data-i18n="monthly_step_goal.label">Monthly step goal</label>
               <input id="daily-step-goal" name="daily-step-goal" type="number" class="form-control" value="" min="0"
                 step="1000" />
             </div>
             <div class="form-group">
-              <label for="app-theme-select">Theme</label>
+              <label for="app-theme-select" data-i18n="theme.label">Theme</label>
               <select class="form-select" id="app-theme-select" name="app-theme">
-                <option value="auto">Auto</option>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
+                <option value="auto" data-i18n="theme.auto">Auto</option>
+                <option value="light" data-i18n="theme.light">Light</option>
+                <option value="dark" data-i18n="theme.dark">Dark</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-i18n="app-lang.label">Language</label>
+              <select class="form-select" id="app-lang-select" name="app-lang">
+                <option value="en-US" data-i18n="app-lang.options.en-US">American English</option>
+                <option value="nb-NO" data-i18n="app-lang.options.nb-NO">Norsk Bokmål</option>
+                <option value="es-ES" data-i18n="app-lang.options.es-ES">Spanish</option>
               </select>
             </div>
           </form>
@@ -121,7 +129,6 @@
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./stepscalc.js" type="module"></script>
 </body>
 
