@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-env browser */
-import * as bootstrap from 'bootstrap';
+// eslint-disable-next-line no-unused-vars
+import * as bootstrap from "bootstrap";
 import * as dateFns from "date-fns";
 import ChainedBackend from "i18next-chained-backend";
 import LocalStorageBackend from "i18next-localstorage-backend";
@@ -8,13 +9,14 @@ import HttpBackend from "i18next-http-backend";
 import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector"
 import i18next from "i18next"
 import locI18next from "loc-i18next";
-
 import {
   followColorScheme,
   getPreferredTheme,
   setTheme,
   setStoredTheme
 } from "./bootstrap-helpers.js";
+
+const debugMode = process.env.NODE_ENV === "development";;
 
 /**
  * Handles the language change event and updates the UI accordingly.
@@ -37,8 +39,9 @@ function initI18n() {
   i18next
     .use(i18nextBrowserLanguageDetector)
     .use(ChainedBackend)
+    .on("languageChanged", handleLanguageChanged)
     .init({
-      "debug": false, // toggle for development
+      "debug": debugMode, // toggle for development
       // "lng": "cimode", // enable for translation
       // appendNamespaceToCIMode: true,
       fallbackLng: "en-US",
@@ -56,19 +59,18 @@ function initI18n() {
         "backendOptions": [
           // local storage
           {
-            // "debug": true,
+            "debug": debugMode,
             "expirationTime": 1 * 24 * 60 * 60 * 1000 // 1 day
           },
           // http
           {
-            // "debug": true,
+            "debug": debugMode,
             "loadPath": "locales/{{lng}}/{{ns}}.json",
-            "crossDomain": true,
+            // "crossDomain": true,
           }
         ]
       }
     }).then(() => {
-      i18next.on("languageChanged", handleLanguageChanged);
       // window.i18next = i18next;// for interactive debugging
       calc();// force update of calculated text
     });
