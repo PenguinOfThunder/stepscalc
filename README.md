@@ -1,3 +1,5 @@
+![Build](https://github.com/github/docs/actions/workflows/static.yml/badge.svg)
+
 # Steps Calculator
 
 Set a goal for the month and use this at any time to calculate how many steps you need to take each day to reach your goal by the end of the month.
