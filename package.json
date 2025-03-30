@@ -2,7 +2,6 @@
   "name": "stepscalc",
   "version": "1.0.0",
   "description": "Set a goal for the month and use this at any time to calculate how many steps you need to take each day to reach your goal by the end of the month.",
-  "main": "stepscalc.js",
   "scripts": {
     "test": "vitest run --run --coverage",
     "dev": "vite",
@@ -16,7 +15,7 @@
     "type": "git"
   },
   "author": {
-    "name": "PenguinOfthunder",
+    "name": "PenguinOfThunder",
     "url": "https://github.com/PenguinOfThunder"
   },
   "license": "BSD-3-Clause",
