@@ -2,6 +2,8 @@
   "name": "stepscalc",
   "version": "1.0.0",
   "description": "Set a goal for the month and use this at any time to calculate how many steps you need to take each day to reach your goal by the end of the month.",
+  "type": "module",
+  "private": true,
   "scripts": {
     "test": "vitest run --run --coverage",
     "dev": "vite",
@@ -20,6 +22,7 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.0.9",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -34,9 +37,15 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "i18next": "^24.2.3",
     "i18next-browser-languagedetector": "^8.0.4",
-    "loc-i18next": "^0.1.6"
+    "import": "^0.0.6",
+    "loc-i18next": "^0.1.6",
+    "react": "^19.1.0",
+    "react-bootstrap-icons": "^1.11.5",
+    "react-dom": "^19.1.0",
+    "react-i18next": "^15.4.1"
   }
 }
