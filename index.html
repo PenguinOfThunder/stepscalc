@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
   <meta charset="utf-8" />
@@ -85,7 +85,10 @@
         </button>
       </div>
     </form>
-    <div id="message" class="alert alert-info" role="alert"></div>
+    <div id="steps_progress" class="progress" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="progress-bar" class="progress-bar bg-success overflow-visible" role="progressbar" style="width: 0%">0%</div>
+    </div>
+    <div id="message" class="mt-2 alert alert-info" role="alert"></div>
   </main>
   <footer class="text-center">
     <a class="link-secondary link-underline-opacity-0" href="https://github.com/PenguinOfThunder/stepscalc"
@@ -121,9 +124,10 @@
             <div class="form-group">
               <label data-i18n="app-lang.label">Language</label>
               <select class="form-select" id="app-lang-select" name="app-lang">
-                <option value="en-US" data-i18n="app-lang.options.en-US">American English</option>
-                <option value="nb-NO" data-i18n="app-lang.options.nb-NO">Norsk Bokmål</option>
-                <option value="es-ES" data-i18n="app-lang.options.es-ES">Spanish</option>
+                <option value="en" data-i18n="app-lang.option.label" i18n-options="{'lang':'en', to: 'en'}">English</option>
+                <option value="nb" data-i18n="app-lang.option.label" i18n-options="{'lang':'nb', to: 'nb'}">Norsk Bokmål</option>
+                <option value="nn" data-i18n="app-lang.option.label" i18n-options="{'lang':'nn', to: 'nn'}">Norsk Nynorsk</option>
+                <option value="es" data-i18n="app-lang.option.label" i18n-options="{'lang':'es', to: 'es'}">Español</option>
               </select>
             </div>
           </form>

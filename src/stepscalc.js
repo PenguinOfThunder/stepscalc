@@ -3,11 +3,8 @@
 // eslint-disable-next-line no-unused-vars
 import * as bootstrap from "bootstrap";
 import * as dateFns from "date-fns";
-import ChainedBackend from "i18next-chained-backend";
-import LocalStorageBackend from "i18next-localstorage-backend";
-import HttpBackend from "i18next-http-backend";
-import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector"
-import i18next from "i18next"
+import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
+import i18next from "i18next";
 import locI18next from "loc-i18next";
 import {
   followColorScheme,
@@ -15,8 +12,14 @@ import {
   setTheme,
   setStoredTheme
 } from "./bootstrap-helpers.js";
-
-const debugMode = process.env.NODE_ENV === "development";;
+import DisplayNamesPostProcessor from "./i18nextDisplayNamesPostProcessor.js";
+// statically imported translations
+import enUSTranslation from "./locales/en/translation.json" assert { type: "json" };
+import nbNOTranslation from "./locales/nb/translation.json" assert { type: "json" };
+import nnNOTranslation from "./locales/nn/translation.json" assert { type: "json" };
+import esESTranslation from "./locales/es/translation.json" assert { type: "json" };
+// Set debug mode based on environment
+const debugMode = process.env.NODE_ENV === "development";
 
 /**
  * Handles the language change event and updates the UI accordingly.
@@ -24,7 +27,8 @@ const debugMode = process.env.NODE_ENV === "development";;
  */
 function handleLanguageChanged() {
   locI18next.init(i18next, {
-    selectorAttr: "data-i18n"
+    selectorAttr: "data-i18n",
+    useOptionsAttr: true
   })("*[data-i18n]");
   calc();
 }
@@ -38,43 +42,43 @@ function initI18n() {
   // Localize
   i18next
     .use(i18nextBrowserLanguageDetector)
-    .use(ChainedBackend)
-    .on("languageChanged", handleLanguageChanged)
-    .init({
-      "debug": debugMode, // toggle for development
-      // "lng": "cimode", // enable for translation
-      // appendNamespaceToCIMode: true,
-      fallbackLng: "en-US",
-      // nonExplicitSupportedLngs: true,
-      "supportedLngs": ["en-US", "nb-NO", "es-ES"],
-      "preload": ["en-US"],
-      "partialBundledLanguages": true,
-      "resources": {},
-      // Chained backends:
-      "backend": {
-        "backends": [
-          LocalStorageBackend,
-          HttpBackend
-        ],
-        "backendOptions": [
-          // local storage
-          {
-            "debug": debugMode,
-            "expirationTime": 1 * 24 * 60 * 60 * 1000 // 1 day
-          },
-          // http
-          {
-            "debug": debugMode,
-            "loadPath": "locales/{{lng}}/{{ns}}.json",
-            // "crossDomain": true,
-          }
-        ]
-      }
-    }).then(() => {
-      // window.i18next = i18next;// for interactive debugging
-      calc();// force update of calculated text
-    });
+    .use(DisplayNamesPostProcessor)
+    // .use(ChainedBackend)
+    .on("languageChanged", handleLanguageChanged);
+  i18next.init({
+    debug: debugMode, // toggle for development
+    // "lng": "cimode", // enable for translation
+    // appendNamespaceToCIMode: true,
+    fallbackLng: "en",
+    nonExplicitSupportedLngs: true,
+    supportedLngs: ["en", "nb", "nn", "es"],
+    // preload: ["en"],
+    partialBundledLanguages: true,
+    detection: {
+      order: ["querystring", "localStorage", "navigator"]
+    },
+    resources: {
+      en: { translation: enUSTranslation },
+      nb: { translation: nbNOTranslation },
+      nn: { translation: nnNOTranslation },
+      es: { translation: esESTranslation }
+    }
+  });
+  i18next.services.formatter.addCached("displayName", formatDisplayName);
+  handleLanguageChanged();
 }
+
+const formatDisplayName = (lng, options) => {
+  const toLang = [lng];
+  if (options["to"]) {
+    toLang.unshift(options["to"]);
+  }
+  const dnf = new Intl.DisplayNames(toLang, {
+    type: "language",
+    ...options
+  });
+  return (value) => dnf.of(value);
+};
 
 /**
  * Update calculated values
@@ -92,7 +96,8 @@ function calc() {
       form.elements.steps_required.value,
       10
     );
-
+    const progressBarContainer = document.getElementById("steps_progress");
+    const progressBar = progressBarContainer.querySelector(".progress-bar");
     // Calculate
     const today = dateFns.parseISO(form.elements.today.value);
     if (dateFns.isValid(today)) {
@@ -106,24 +111,23 @@ function calc() {
       const avgStepsPerDay = stepsCompleted / daysPast;
       const projDaysRemain = Math.ceil(stepsRemaining / avgStepsPerDay);
       const dayToComplete = dateFns.addDays(today, projDaysRemain);
+      const fractionComplete = stepsCompleted / stepsRequired;
       const msgEl = document.getElementById("message");
       if (Number.isFinite(avgStepsPerDay) && projDaysRemain > 0) {
-        msgEl.innerText = i18next.t("predicted_days.text",
-          {
-            avgStepsPerDay,
-            projDaysRemain,
-            dayToComplete,
-            formatParams: {
-              projDaysRemain: { style: "long", numeric: "auto" },
-              dayToComplete: {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-              }
+        msgEl.innerText = i18next.t("predicted_days.text", {
+          avgStepsPerDay,
+          projDaysRemain,
+          dayToComplete,
+          formatParams: {
+            projDaysRemain: { style: "long", numeric: "auto" },
+            dayToComplete: {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric"
             }
           }
-        );
+        });
       } else if (projDaysRemain <= 0) {
         // "Congratulations, you are done with your steps for the month!";
         msgEl.innerText = i18next.t("congrats.text");
@@ -140,9 +144,24 @@ function calc() {
       )
         ? `${stepsRemainingPerDay.toLocaleString()}`
         : i18next.t("not.available");
+      // Set progress bar
+      if (Number.isFinite(fractionComplete)) {
+        // progressBarContainer.classList.add("invisible");
+        progressBar.innerText = i18next.t("progress.text", {
+          fractionComplete
+        });
+        progressBar.style.width = `${Math.ceil(fractionComplete * 100)}%`;
+        progressBar.setAttribute(
+          "aria-valuenow",
+          Math.ceil(fractionComplete * 100)
+        );
+      } else {
+        // progressBarContainer.classList.add("invisible");
+      }
     } else {
       form.elements.steps_remaining.value = "";
       form.elements.steps_remaining_per_day.value = "";
+      progressBar.innerText = "";
     }
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -158,6 +177,14 @@ function restoreSavedGoal() {
   const savedGoal = Number.parseInt(localStorage.getItem("steps_required"), 10);
   if (Number.isInteger(savedGoal)) {
     document.getElementById("steps_required").value = String(savedGoal);
+  }
+}
+
+function restoreSavedLanguage() {
+  const savedLang = localStorage.getItem("i18nextLng") || "en-US";
+  const langSelect = document.getElementById("app-lang-select");
+  if (langSelect) {
+    langSelect.value = savedLang;
   }
 }
 
@@ -237,6 +264,7 @@ function init() {
         e.target.select(); // select all when focused
       });
     // Calculate initial value
+    restoreSavedLanguage();
     restoreSavedGoal();
     calc();
   } catch (err) {
