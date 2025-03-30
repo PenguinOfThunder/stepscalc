@@ -1,4 +1,10 @@
-/** @type {import('vite').UserConfig} */
+/** @type {import('vite').UserConfig}  */
 export default {
-    base: "/stepscalc/"
-}
+  base: "/stepscalc/",
+  test: {
+    coverage: {
+      reporter: ["text", "json-summary", "json"],
+      reportOnFailure: true
+    }
+  }
+};
