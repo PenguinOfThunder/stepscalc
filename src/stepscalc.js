@@ -30,6 +30,10 @@ function handleLanguageChanged() {
     selectorAttr: "data-i18n",
     useOptionsAttr: true
   })("*[data-i18n]");
+  const langSelect = document.getElementById("app-lang-select");
+  if (langSelect) {
+    langSelect.value = i18next.resolvedLanguage;
+  }
   calc();
 }
 
@@ -180,14 +184,6 @@ function restoreSavedGoal() {
   }
 }
 
-function restoreSavedLanguage() {
-  const savedLang = localStorage.getItem("i18nextLng") || "en-US";
-  const langSelect = document.getElementById("app-lang-select");
-  if (langSelect) {
-    langSelect.value = savedLang;
-  }
-}
-
 /**
  * Initialize defaults and event handlers
  * @returns {void} Nothing
@@ -264,7 +260,6 @@ function init() {
         e.target.select(); // select all when focused
       });
     // Calculate initial value
-    restoreSavedLanguage();
     restoreSavedGoal();
     calc();
   } catch (err) {
