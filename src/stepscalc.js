@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-env browser */
-import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/+esm';
-import * as dateFns from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
-import ChainedBackend from "https://cdn.jsdelivr.net/npm/i18next-chained-backend@4.6.2/+esm";
-import LocalStorageBackend from "https://cdn.jsdelivr.net/npm/i18next-localstorage-backend@4.2.0/+esm";
-import HttpBackend from "https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm";
-import i18nextBrowserLanguageDetector from "https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@8.0.4/+esm"
-import i18next from "https://cdn.jsdelivr.net/npm/i18next@24.2.3/+esm"
-import locI18next from "https://cdn.jsdelivr.net/npm/loc-i18next@0.1.6/+esm";
+import * as bootstrap from 'bootstrap';
+import * as dateFns from "date-fns";
+import ChainedBackend from "i18next-chained-backend";
+import LocalStorageBackend from "i18next-localstorage-backend";
+import HttpBackend from "i18next-http-backend";
+import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector"
+import i18next from "i18next"
+import locI18next from "loc-i18next";
 
 import {
   followColorScheme,

@@ -8,7 +8,7 @@
   <title>Remaining Steps Calculator</title>
   <meta name="description" content="Calculates the steps remaining in this month to reach your goal" />
   <link rel="icon" href="#" />
-  <link rel="stylesheet" href="stepscalc.css" />
+  <link rel="stylesheet" href="./src/stepscalc.scss" />
 </head>
 
 <body class="container">
@@ -30,8 +30,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
-            <button type="button" class="nav-item btn" data-bs-toggle="modal" data-bs-target="#optionsModal" data-i18n="[title]options.title"
-              title="Options">
+            <button type="button" class="nav-item btn" data-bs-toggle="modal" data-bs-target="#optionsModal"
+              data-i18n="[title]options.title" title="Options">
               <i class="bi-sliders"></i>
             </button>
           </ul>
@@ -43,7 +43,7 @@
     <form id="calc-form" class="form needs-validation" action="#" method="post" novalidate>
       <div class="input-group mb-1 form-floating">
         <input class="form-control" id="today" name="today" type="date" value="" required placeholder="mm/dd/yyyy"
-        data-i18n="[placeholder]today.placeholder" />
+          data-i18n="[placeholder]today.placeholder" />
         <label class="form-label" for="today" data-i18n="today.label">
           Today's Date
         </label>
@@ -99,12 +99,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" data-i18n="options.title">Options</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="[aria-label]close_btn.label" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="[aria-label]close_btn.label"
+            aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="form" id="optionsForm">
             <div class="form-group">
-              <label for="daily-step-goal" class="form-label" data-i18n="monthly_step_goal.label">Monthly step goal</label>
+              <label for="daily-step-goal" class="form-label" data-i18n="monthly_step_goal.label">Monthly step
+                goal</label>
               <input id="daily-step-goal" name="daily-step-goal" type="number" class="form-control" value="" min="0"
                 step="1000" />
             </div>
@@ -129,7 +131,7 @@
       </div>
     </div>
   </div>
-  <script src="./stepscalc.js" type="module"></script>
+  <script src="./src/stepscalc.js" type="module"></script>
 </body>
 
 
