@@ -1,4 +1,4 @@
-![Build](https://github.com/github/docs/actions/workflows/static.yml/badge.svg)
+[![Deploy to GitHub Pages](https://github.com/PenguinOfThunder/stepscalc/actions/workflows/static.yml/badge.svg)](https://github.com/PenguinOfThunder/stepscalc/actions/workflows/static.yml)
 
 # Steps Calculator
 
