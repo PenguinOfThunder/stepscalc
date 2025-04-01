@@ -1,9 +1,9 @@
 /* eslint-disable require-jsdoc */
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
 import Main from "./Main.jsx";
-import { useTranslation } from "react-i18next";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -13,11 +13,13 @@ function App() {
     document.title = t("app.title");
   }, [i18n.language]);
 
-  return <>
-    <Header />
-    <Main />
-    <Footer />
-  </>;
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
 }
 
 export default App;

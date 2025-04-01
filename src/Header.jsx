@@ -8,8 +8,8 @@ import { useAppState } from "./store";
 
 /* eslint-disable require-jsdoc */
 function Header({ t }) {
-  const showOptions = useAppState(state => state.showOptions);
-  const setShowOptions = useAppState(state => state.setShowOptions);
+  const showOptions = useAppState((state) => state.showOptions);
+  const setShowOptions = useAppState((state) => state.setShowOptions);
   const handleShowOptionsClick = useCallback(() => {
     setShowOptions(true);
   }, [setShowOptions]);
@@ -18,20 +18,27 @@ function Header({ t }) {
   }, [setShowOptions]);
   return (
     <header>
-      <Navbar expand bg="gradient" className='bg-body-secondary text-body-secondary mb-1'>
+      <Navbar
+        expand
+        bg="gradient"
+        className="bg-body-secondary text-body-secondary mb-1">
         <Container fluid>
-          <Navbar.Brand className='mb-0 h1'>
-            <PersonWalking className='text-primary-emphasis me-1' title="Logo" />
+          <Navbar.Brand className="mb-0 h1">
+            <PersonWalking
+              className="text-primary-emphasis me-1"
+              title="Logo"
+            />
             <span>{t("app.title")}</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarSupportedContent" />
           <Navbar.Collapse id="navbarSupportedContent">
             <Nav className="ms-auto">
-              <Button variant="secondary"
-                type='button'
-                className='nav-item btn'
-                data-bs-toggle='modal'
-                data-bs-target='#optionsModal'
+              <Button
+                variant="secondary"
+                type="button"
+                className="nav-item btn"
+                data-bs-toggle="modal"
+                data-bs-target="#optionsModal"
                 onClick={handleShowOptionsClick}
                 title={t("options.title")}>
                 <Sliders />
@@ -40,7 +47,13 @@ function Header({ t }) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {createPortal(<Options show={showOptions} handleClose={handleOptionsClose} />, document.body)}
+      {createPortal(
+        <Options
+          show={showOptions}
+          handleClose={handleOptionsClose}
+        />,
+        document.body
+      )}
     </header>
   );
 }

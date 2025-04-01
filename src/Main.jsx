@@ -4,8 +4,8 @@ import { useCallback, useMemo } from "react";
 import { Alert, Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import { Calculator, CalendarDate, Icon123 } from "react-bootstrap-icons";
 import { withTranslation } from "react-i18next";
-import { useAppState } from "./store";
 import { useShallow } from "zustand/shallow";
+import { useAppState } from "./store";
 
 function calc(today, stepsCompleted, stepsRequired) {
   const values = {
@@ -44,13 +44,16 @@ function calc(today, stepsCompleted, stepsRequired) {
 }
 
 function Main({ t }) {
-  const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } = useAppState(useShallow(state => ({
-    today: state.today,
-    setToday: state.setToday,
-    stepsCompleted: state.stepsCompleted,
-    stepsRequired: state.stepsRequired,
-    setStepsCompleted: state.setStepsCompleted
-  })));
+  const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
+    useAppState(
+      useShallow((state) => ({
+        today: state.today,
+        setToday: state.setToday,
+        stepsCompleted: state.stepsCompleted,
+        stepsRequired: state.stepsRequired,
+        setStepsCompleted: state.setStepsCompleted
+      }))
+    );
   const cv = calc(today, stepsCompleted, stepsRequired);
   // Determine message text
   const message = useMemo(() => {
@@ -91,22 +94,22 @@ function Main({ t }) {
     t
   ]);
 
-  const handleChangeToday = useCallback(
+  const handleChangeToday = useCallback((e) => {
+    const newDate = dateFns.parseISO(e.currentTarget.value);
+    if (dateFns.isValid(newDate)) {
+      setToday(newDate);
+    }
+  }, []);
+
+  const handleChangeStepsCompleted = useCallback(
     (e) => {
-      const newDate = dateFns.parseISO(e.currentTarget.value);
-      if (dateFns.isValid(newDate)) {
-        setToday(newDate);
+      const count = Number.parseInt(e.currentTarget.value);
+      if (Number.isFinite(count, 10)) {
+        setStepsCompleted(count);
       }
     },
-    []
+    [setStepsCompleted]
   );
-
-  const handleChangeStepsCompleted = useCallback((e) => {
-    const count = Number.parseInt(e.currentTarget.value);
-    if (Number.isFinite(count, 10)) {
-      setStepsCompleted(count);
-    }
-  }, [setStepsCompleted]);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -117,95 +120,95 @@ function Main({ t }) {
   return (
     <main>
       <Form
-        id='calc-form'
-        className='needs-validation'
-        action='#'
-        method='post'
+        id="calc-form"
+        className="needs-validation"
+        action="#"
+        method="post"
         noValidate
         onSubmit={handleSubmit}>
-        <InputGroup className='mb-1 form-floating'>
+        <InputGroup className="mb-1 form-floating">
           <Form.Control
-            id='today'
-            name='today'
-            type='date'
+            id="today"
+            name="today"
+            type="date"
             value={dateFns.formatISO(today, { representation: "date" })}
             onChange={handleChangeToday}
             required
             placeholder={t("today.placeholder")}
           />
-          <Form.Label htmlFor='today'>
-            {t("today.label")}
-          </Form.Label>
+          <Form.Label htmlFor="today">{t("today.label")}</Form.Label>
           <InputGroup.Text>
             <CalendarDate />
           </InputGroup.Text>
         </InputGroup>
-        <InputGroup className='form-floating mb-1'>
+        <InputGroup className="form-floating mb-1">
           <Form.Control
-            id='steps_completed'
-            name='steps_completed'
-            type='number'
-            min='0'
-            step='100'
+            id="steps_completed"
+            name="steps_completed"
+            type="number"
+            min="0"
+            step="100"
             required
-            placeholder='nnnnnn'
+            placeholder="nnnnnn"
             autoFocus
             value={stepsCompleted}
             onChange={handleChangeStepsCompleted}
           />
-          <Form.Label htmlFor='steps_completed'>
+          <Form.Label htmlFor="steps_completed">
             {t("steps_completed.label")}
           </Form.Label>
           <InputGroup.Text>
             <Icon123 />
           </InputGroup.Text>
         </InputGroup>
-        <InputGroup className='form-floating mb-1'>
+        <InputGroup className="form-floating mb-1">
           <Form.Control
-            id='steps_required'
-            name='steps_required'
-            type='number'
+            id="steps_required"
+            name="steps_required"
+            type="number"
             value={stepsRequired}
-            min='0'
-            step='1000'
+            min="0"
+            step="1000"
             required
             readOnly
-            placeholder='nnnnnn'
+            placeholder="nnnnnn"
           />
-          <Form.Label htmlFor='steps_required'>
+          <Form.Label htmlFor="steps_required">
             {t("steps_required.label")}
           </Form.Label>
           <InputGroup.Text>
             <Icon123 />
           </InputGroup.Text>
         </InputGroup>
-        <InputGroup className='form-floating mb-1'>
+        <InputGroup className="form-floating mb-1">
           <Form.Control
-            id='steps_remaining'
-            name='steps_remaining'
+            id="steps_remaining"
+            name="steps_remaining"
             readOnly
-            placeholder='nnnnnn'
+            placeholder="nnnnnn"
             value={cv.stepsRemaining}
           />
-          <Form.Label htmlFor='steps_remaining'>
+          <Form.Label htmlFor="steps_remaining">
             {t("steps_remaining.label")}
           </Form.Label>
         </InputGroup>
-        <InputGroup className='form-floating mb-1'>
+        <InputGroup className="form-floating mb-1">
           <Form.Control
-            id='steps_remaining_per_day'
-            name='steps_remaining_per_day'
+            id="steps_remaining_per_day"
+            name="steps_remaining_per_day"
             readOnly
-            placeholder='nnnn'
+            placeholder="nnnn"
             value={cv.stepsRemainingPerDay}
           />
-          <Form.Label htmlFor='steps_remaining_per_day'>
+          <Form.Label htmlFor="steps_remaining_per_day">
             {t("steps_remaining_per_day.label")}
           </Form.Label>
         </InputGroup>
-        <div className='mt-2 mb-2'>
-          <Button variant="primary" type='submit'>
-            <Calculator className='me-1' />
+        <div className="mt-2 mb-2">
+          <Button
+            variant="primary"
+            type="submit">
+            <Calculator className="me-1 mb-1" />
             {t("calc-btn.label")}
           </Button>
         </div>
@@ -219,7 +222,9 @@ function Main({ t }) {
         label={t("progress.text", { fractionComplete: cv.fractionComplete })}
       />
 
-      <Alert variant="info" className="mt-2">
+      <Alert
+        variant="info"
+        className="mt-2">
         {message}
       </Alert>
     </main>
