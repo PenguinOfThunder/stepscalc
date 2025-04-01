@@ -1,17 +1,23 @@
 /* eslint-disable require-jsdoc */
-
+import { useEffect } from "react";
 import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
 import Main from "./Main.jsx";
+import { useTranslation } from "react-i18next";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Main />
-      <Footer />
-    </>
-  );
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    // Update title on language change
+    document.title = t("app.title");
+  }, [i18n.language]);
+
+  return <>
+    <Header />
+    <Main />
+    <Footer />
+  </>;
 }
 
 export default App;

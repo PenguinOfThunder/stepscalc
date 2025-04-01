@@ -46,5 +46,7 @@ i18next
     }
   });
 i18next.services.formatter.addCached("displayName", formatDisplayName);
-
+i18next.on("languageChanged", (lng) => {
+  document.documentElement.setAttribute("lang", lng);
+});
 export default i18next;
