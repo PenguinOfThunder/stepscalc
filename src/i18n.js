@@ -10,7 +10,7 @@ import nnNOTranslation from "./locales/nn/translation.json";
 // Set debug mode based on environment
 const debugMode = process.env.NODE_ENV === "development";
 
-const formatDisplayName = (lng, options) => {
+function formatDisplayName(lng, options) {
   const toLang = [lng];
   if (options.to) {
     toLang.unshift(options.to);
@@ -20,7 +20,7 @@ const formatDisplayName = (lng, options) => {
     ...options
   });
   return (value) => dnf.of(value);
-};
+}
 
 // Localize
 i18next
@@ -32,12 +32,12 @@ i18next
     // appendNamespaceToCIMode: true,
     fallbackLng: "en",
     nonExplicitSupportedLngs: true,
+    // update when localizations are added
     supportedLngs: ["en", "nb", "nn", "es"],
-    // preload: ["en"],
     partialBundledLanguages: true,
-    detection: {
-      order: ["querystring", "localStorage", "navigator"]
-    },
+    // detection: {
+    //   order: ["querystring", "localStorage", "navigator"]
+    // },
     resources: {
       en: { translation: enUSTranslation },
       nb: { translation: nbNOTranslation },

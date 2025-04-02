@@ -1,13 +1,12 @@
 import * as dateFns from "date-fns";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { getPreferredTheme, setTheme } from "./bootstrap-helpers";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export const useAppState = create(
   persist(
     (set, get) => ({
-      theme: getPreferredTheme(),
-      today: dateFns.formatISO(new Date(), { representation: "date" }),
+      theme: "auto",
+      today: new Date(),
       stepsCompleted: 0,
       stepsRequired: 180_000,
       showOptions: false,
@@ -18,17 +17,17 @@ export const useAppState = create(
       setShowOptions: (show) => set({ showOptions: show })
     }),
     {
-      name: "stepscalc-settings"
+      name: "stepscalc-settings",
+      storage: createJSONStorage(() => localStorage),
+      version: 0,
+      partialize: (state) => ({
+        stepsRequired: state.stepsRequired,
+        theme: state.theme,
+        stepsCompleted: state.stepsCompleted
+      })
     }
   )
 );
 
 // log for testing
-useAppState.subscribe((state, prevState) => console.log({ state, prevState }));
-
-// Auto update theme
-useAppState.subscribe((state) => {
-  setTheme(state.theme);
-});
-
-// followColorScheme();
+// useAppState.subscribe((state, prevState) => console.log({ state, prevState }));

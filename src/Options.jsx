@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { Sliders } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,10 @@ import { useAppState } from "./store";
 function Options({ show, handleClose }) {
   const { t, i18n } = useTranslation();
   const lng = i18n.language;
+  const lngList = useMemo(
+    () => i18n.options.supportedLngs.filter((l) => l !== "cimode"),
+    [i18n]
+  );
   const changeTheme = useAppState((state) => state.changeTheme);
   const theme = useAppState((state) => state.theme);
   const changeGoal = useAppState((state) => state.changeGoal);
@@ -85,17 +89,14 @@ function Options({ show, handleClose }) {
                 name="app-lang"
                 value={lng}
                 onChange={handleLanguageChange}>
-                {i18n.options.supportedLngs
-                  .filter((l) => l !== "cimode")
-                  .map((lng) => (
-                    <option
-                      key={lng}
-                      value={lng}
-                      lang={lng}>
-                      {t("app-lang.option.label", { lang: lng, to: lng })} (
-                      {lng})
-                    </option>
-                  ))}
+                {lngList.map((lc) => (
+                  <option
+                    key={lc}
+                    value={lc}
+                    lang={lc}>
+                    {t("app-lang.option.label", { lang: lc, to: lc })} ({lc})
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Form>

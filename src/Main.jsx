@@ -1,47 +1,19 @@
 /* eslint-disable require-jsdoc */
 import * as dateFns from "date-fns";
 import { useCallback, useMemo } from "react";
-import { Alert, Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Container,
+  Form,
+  InputGroup,
+  ProgressBar
+} from "react-bootstrap";
 import { Calculator, CalendarDate, Icon123 } from "react-bootstrap-icons";
 import { withTranslation } from "react-i18next";
 import { useShallow } from "zustand/shallow";
+import { calc } from "./calculator";
 import { useAppState } from "./store";
-
-function calc(today, stepsCompleted, stepsRequired) {
-  const values = {
-    today,
-    stepsCompleted,
-    stepsRequired,
-    avgStepsPerDay: Number.NaN,
-    projDaysRemain: Number.NaN,
-    dayToComplete: undefined,
-    fractionComplete: 0,
-    stepsRemaining: Number.NaN,
-    stepsRemainingPerDay: Number.NaN
-  };
-  if (dateFns.isValid(today)) {
-    const monthStart = dateFns.startOfMonth(today);
-    const monthEnd = dateFns.endOfMonth(today);
-    const daysRemaining = dateFns.differenceInDays(monthEnd, today);
-    const stepsRemaining =
-      stepsRequired > 0 ? stepsRequired - stepsCompleted : 0;
-    const stepsRemainingPerDay = Math.ceil(stepsRemaining / daysRemaining);
-    const daysPast = dateFns.differenceInDays(today, monthStart) + 1;
-    const avgStepsPerDay = stepsCompleted / daysPast;
-    const projDaysRemain = Math.ceil(stepsRemaining / avgStepsPerDay);
-    const dayToComplete = dateFns.addDays(today, projDaysRemain);
-    const fractionComplete = stepsCompleted / stepsRequired;
-    values.avgStepsPerDay = avgStepsPerDay;
-    values.projDaysRemain = projDaysRemain;
-    values.dayToComplete = dayToComplete;
-    values.fractionComplete = fractionComplete;
-    values.stepsRemaining = stepsRemaining;
-    values.stepsRemainingPerDay = stepsRemainingPerDay;
-    values.stepsCompleted = stepsCompleted;
-    values.stepsRequired = stepsRequired;
-  }
-  return values;
-}
 
 function Main({ t }) {
   const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
@@ -118,7 +90,7 @@ function Main({ t }) {
   });
 
   return (
-    <main>
+    <Container as={"main"}>
       <Form
         id="calc-form"
         className="needs-validation"
@@ -219,7 +191,11 @@ function Main({ t }) {
         now={cv.fractionComplete * 100}
         min={0}
         max={100}
-        label={t("progress.text", { fractionComplete: cv.fractionComplete })}
+        label={t("progress.text", {
+          fractionComplete: cv.fractionComplete,
+          stepsCompleted: cv.stepsCompleted,
+          stepsRequired: cv.stepsRequired
+        })}
       />
 
       <Alert
@@ -227,7 +203,7 @@ function Main({ t }) {
         className="mt-2">
         {message}
       </Alert>
-    </main>
+    </Container>
   );
 }
 

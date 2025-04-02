@@ -25,7 +25,7 @@ function Header({ t }) {
         <Container fluid>
           <Navbar.Brand className="mb-0 h1">
             <PersonWalking
-              className="text-primary-emphasis me-1"
+              className="text-primary-emphasis me-1 align-baseline"
               title="Logo"
             />
             <span>{t("app.title")}</span>
@@ -41,7 +41,7 @@ function Header({ t }) {
                 data-bs-target="#optionsModal"
                 onClick={handleShowOptionsClick}
                 title={t("options.title")}>
-                <Sliders />
+                <Sliders className="mb-1" />
               </Button>
             </Nav>
           </Navbar.Collapse>
