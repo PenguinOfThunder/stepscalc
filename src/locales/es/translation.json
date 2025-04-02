@@ -22,6 +22,6 @@
   "predicted_days.text": "A tu ritmo actual de {{avgStepsPerDay, number(maximumFractionDigits:0)}} pasos por día, completarás tus pasos {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
   "congrats.text": "¡Felicidades, has completado tus pasos del mes!",
   "not.available": "N/D",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }}",
+  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} de {{ stepsRequired,number(maximumFractionDigits:0) }}",
   "app-lang.label": "Idioma"
 }

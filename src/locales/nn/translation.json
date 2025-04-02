@@ -22,6 +22,6 @@
   "predicted_days.text": "Med eit gjennomsnitt på {{avgStepsPerDay, number(maximumFractionDigits:0)}} skritt per dag, blir du ferdig med skritta {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
   "congrats.text": "Gratulerer, du er ferdig med skritta for denne månaden!",
   "not.available": "Udefinert",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }}",
+  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} av {{ stepsRequired,number(maximumFractionDigits:0) }}",
   "app-lang.label": "Språk"
 }
