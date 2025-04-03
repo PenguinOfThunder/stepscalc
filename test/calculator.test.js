@@ -20,7 +20,7 @@ describe("calculator", () => {
     const today = new Date("2025-03-01 00:00");
     const stepsCompleted = 0;
     const stepsRemaining = stepsRequired - stepsCompleted;
-    const daysRemaining = 30;
+    const daysRemaining = 31;
     const c = calc(today, stepsCompleted, stepsRequired);
     // console.log(c);
     expect(c.today).toEqual(today);
@@ -29,7 +29,7 @@ describe("calculator", () => {
     expect(c.stepsRemaining, "stepsRemaining").toBe(stepsRemaining);
     expect(c.fractionComplete, "fractionComplete").toBe(0);
     expect(c.avgStepsPerDay, "avgStepsPerDay").toBe(0);
-    expect(c.projDaysRemain, "projDaysRemain").toBe(Infinity);
+    expect(c.projDaysRemain, "projDaysRemain").toBe(undefined);
     // expect(c.dayToComplete).toBeUndefined();
     expect(c.stepsRemainingPerDay, "stepsReaminingPerDay").toBe(
       Math.ceil(stepsRemaining / daysRemaining)
@@ -39,7 +39,7 @@ describe("calculator", () => {
   it("works for near the end of the month", () => {
     const today = new Date("2025-03-30 00:00");
     const stepsCompleted = 175000;
-    const daysRemaining = 1;
+    const daysRemaining = 2;
     const c = calc(today, stepsCompleted, stepsRequired);
     // console.log(c);
     expect(c.today).toEqual(today);
