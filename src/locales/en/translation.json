@@ -10,7 +10,9 @@
   "steps_completed.label": "Steps Completed This Month",
   "steps_required.label": "Monthly Steps Goal",
   "steps_remaining.label": "Steps Remaining This Month",
+  "steps_remaining.value": "{{ value, number }}",
   "steps_remaining_per_day.label": "Daily Steps Remaining This Month",
+  "steps_remaining_per_day.value": "{{ value, number }}",
   "calc-btn.label": "Calculate",
   "theme.label": "Theme",
   "theme.auto": "Automatic",
@@ -22,9 +24,10 @@
   "predicted_days.text": "At your current rate of {{avgStepsPerDay, number(maximumFractionDigits:0)}} steps per day, you will complete your steps {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
   "congrats.text": "Congratulations, you are done with your steps for the month!",
   "not.available": "N/A",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }}",
+  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} of {{ stepsRequired,number(maximumFractionDigits:0) }}",
   "app-lang": {
     "label": "Language",
     "option.label": "{{lang, displayName(type:language) }}"
-  }
+  },
+  "goal-suggestions.option.label": "{{ monthly_steps,number }} or about {{ daily_steps,number }} per day"
 }

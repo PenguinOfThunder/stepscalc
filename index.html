@@ -1,142 +1,39 @@
-<!DOCTYPE html>
-<html translate="no">
+<!doctype html>
+<html
+  translate="no"
+  class="notranslate">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, width=device-width" />
+    <meta
+      name="color-scheme"
+      content="light dark" />
+    <title>Remaining Steps Calculator</title>
+    <meta
+      name="description"
+      content="Calculates the steps remaining in this month to reach your goal" />
+    <meta
+      name="google"
+      content="notranslate" />
+    <link
+      rel="icon"
+      href="#" />
+    <link
+      rel="stylesheet"
+      href="./src/stepscalc.scss" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-  <meta name="color-scheme" content="light dark" />
-  <title>Remaining Steps Calculator</title>
-  <meta name="description" content="Calculates the steps remaining in this month to reach your goal" />
-  <link rel="icon" href="#" />
-  <link rel="stylesheet" href="./src/stepscalc.scss" />
-</head>
-
-<body class="container">
-  <noscript>
-    <div class="alert alert-danger">
-      This site requires JavaScript to be enabled
-    </div>
-  </noscript>
-  <header>
-    <nav class="navbar navbar-expand bg-gradient bg-body-secondary text-body-secondary mb-1">
-      <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">
-          <span class="bi-person-walking text-primary-emphasis"></span>
-          <span data-i18n="app.title">Steps Calculator</span>
-        </span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto">
-            <button type="button" class="nav-item btn" data-bs-toggle="modal" data-bs-target="#optionsModal"
-              data-i18n="[title]options.title" title="Options">
-              <i class="bi-sliders"></i>
-            </button>
-          </ul>
-        </div>
+  <body>
+    <noscript>
+      <div class="alert alert-danger">
+        This site requires JavaScript to be enabled
       </div>
-    </nav>
-  </header>
-  <main>
-    <form id="calc-form" class="form needs-validation" action="#" method="post" novalidate>
-      <div class="input-group mb-1 form-floating">
-        <input class="form-control" id="today" name="today" type="date" value="" required placeholder="mm/dd/yyyy"
-          data-i18n="[placeholder]today.placeholder" />
-        <label class="form-label" for="today" data-i18n="today.label">
-          Today's Date
-        </label>
-        <span class="input-group-text"><i class="bi-calendar-date"></i></span>
-      </div>
-      <div class="input-group form-floating mb-1">
-        <input class="form-control" id="steps_completed" name="steps_completed" type="number" value="" min="0" step="1"
-          required placeholder="nnnnnn" autofocus />
-        <label class="form-label" for="steps_completed" data-i18n="steps_completed.label">
-          Steps Completed This Month
-        </label>
-        <span class="input-group-text"><i class="bi-123"></i></span>
-      </div>
-      <div class="input-group form-floating mb-1">
-        <input class="form-control" id="steps_required" name="steps_required" type="number" value="180000" min="0"
-          step="1000" required placeholder="nnnnnn" />
-        <label class="form-label" for="steps_required" data-i18n="steps_required.label">
-          Monthly Steps Goal
-        </label>
-        <span class="input-group-text"><i class="bi-123"></i></span>
-      </div>
-      <div class="input-group form-floating mb-1">
-        <input class="form-control" id="steps_remaining" name="steps_remaining" readonly placeholder="nnnnnn" />
-        <label class="form-label" for="steps_remaining" data-i18n="steps_remaining.label">
-          Steps Remaining This Month
-        </label>
-      </div>
-      <div class="input-group form-floating mb-1">
-        <input class="form-control" id="steps_remaining_per_day" name="steps_remaining_per_day" readonly
-          placeholder="nnnn" />
-        <label class="form-label" for="steps_remaining_per_day" data-i18n="steps_remaining_per_day.label">
-          Daily Steps Remaining This Month
-        </label>
-      </div>
-      <div class="mt-2 mb-2">
-        <button id="calc-btn" class="btn btn-primary" type="submit">
-          <span class="bi-calculator"></span>
-          <span data-i18n="calc-btn.label">Calculate</span>
-        </button>
-      </div>
-    </form>
-    <div id="steps_progress" class="progress" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-      <div id="progress-bar" class="progress-bar bg-success overflow-visible" role="progressbar" style="width: 0%">0%</div>
-    </div>
-    <div id="message" class="mt-2 alert alert-info" role="alert"></div>
-  </main>
-  <footer class="text-center">
-    <a class="link-secondary link-underline-opacity-0" href="https://github.com/PenguinOfThunder/stepscalc"
-      target="_blank">
-      <i class="bi-github"></i>
-      <span>GitHub</span>
-    </a>
-  </footer>
-  <div id="optionsModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" data-i18n="options.title">Options</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="[aria-label]close_btn.label"
-            aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="form" id="optionsForm">
-            <div class="form-group">
-              <label for="daily-step-goal" class="form-label" data-i18n="monthly_step_goal.label">Monthly step
-                goal</label>
-              <input id="daily-step-goal" name="daily-step-goal" type="number" class="form-control" value="" min="0"
-                step="1000" />
-            </div>
-            <div class="form-group">
-              <label for="app-theme-select" data-i18n="theme.label">Theme</label>
-              <select class="form-select" id="app-theme-select" name="app-theme">
-                <option value="auto" data-i18n="theme.auto">Auto</option>
-                <option value="light" data-i18n="theme.light">Light</option>
-                <option value="dark" data-i18n="theme.dark">Dark</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label data-i18n="app-lang.label">Language</label>
-              <select class="form-select" id="app-lang-select" name="app-lang">
-                <option value="en" data-i18n="app-lang.option.label" i18n-options="{'lang':'en', to: 'en'}">English</option>
-                <option value="nb" data-i18n="app-lang.option.label" i18n-options="{'lang':'nb', to: 'nb'}">Norsk Bokmål</option>
-                <option value="nn" data-i18n="app-lang.option.label" i18n-options="{'lang':'nn', to: 'nn'}">Norsk Nynorsk</option>
-                <option value="es" data-i18n="app-lang.option.label" i18n-options="{'lang':'es', to: 'es'}">Español</option>
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="./src/stepscalc.js" type="module"></script>
-</body>
-
-
+    </noscript>
+    <div id="root"></div>
+    <script
+      type="module"
+      src="./src/index.jsx"></script>
+  </body>
 </html>

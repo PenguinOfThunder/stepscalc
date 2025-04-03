@@ -10,7 +10,9 @@
   "steps_completed.label": "Skritt gått denne måneden",
   "steps_required.label": "Månedlig skrittmål",
   "steps_remaining.label": "Skritt gjenstående denne måneden",
+  "steps_remaining.value": "{{ value, number }}",
   "steps_remaining_per_day.label": "Daglige skritt gjenstående denne måneden",
+  "steps_remaining_per_day.value": "{{ value, number }}",
   "calc-btn.label": "Kalkulér",
   "theme.label": "Tema",
   "theme.auto": "Automatisk",
@@ -22,6 +24,7 @@
   "predicted_days.text": "Med et gjennomsnitt på {{avgStepsPerDay, number(maximumFractionDigits:0)}} skritt per dag, blir du ferdig med skrittene {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
   "congrats.text": "Gratulerer, du er ferdig med skrittene for denne måneden!",
   "not.available": "Udefinert",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }}",
-  "app-lang.label": "Språk"
+  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} av {{ stepsRequired,number(maximumFractionDigits:0) }}",
+  "app-lang.label": "Språk",
+  "goal-suggestions.option.label": "{{ monthly_steps,number }} eller ca. {{ daily_steps,number }} per dag"
 }
