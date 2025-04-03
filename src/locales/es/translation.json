@@ -10,7 +10,9 @@
   "steps_completed.label": "Pasos Completados Este Mes",
   "steps_required.label": "Meta de Pasos Mensual",
   "steps_remaining.label": "Pasos Restantes Este Mes",
+  "steps_remaining.value": "{{ value, number }}",
   "steps_remaining_per_day.label": "Pasos Diarios Restantes Este Mes",
+  "steps_remaining_per_day.value": "{{ value, number }}",
   "calc-btn.label": "Calcular",
   "theme.label": "Tema",
   "theme.auto": "Automático",
@@ -23,5 +25,6 @@
   "congrats.text": "¡Felicidades, has completado tus pasos del mes!",
   "not.available": "N/D",
   "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} de {{ stepsRequired,number(maximumFractionDigits:0) }}",
-  "app-lang.label": "Idioma"
+  "app-lang.label": "Idioma",
+  "goal-suggestions.option.label": "{{ monthly_steps,number }} o alrededor de {{ daily_steps,number }} por día"
 }

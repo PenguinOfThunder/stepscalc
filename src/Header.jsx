@@ -1,5 +1,12 @@
 import { useCallback } from "react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Nav,
+  Navbar,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 import { PersonWalking, Sliders } from "react-bootstrap-icons";
 import { createPortal } from "react-dom";
 import { withTranslation } from "react-i18next";
@@ -17,15 +24,15 @@ function Header({ t }) {
     setShowOptions(false);
   }, [setShowOptions]);
   return (
-    <header>
+    <header className="bg-gradient">
       <Navbar
         expand
-        bg="gradient"
-        className="bg-body-secondary text-body-secondary mb-1">
+        variant="primary"
+        className="mb-1">
         <Container fluid>
-          <Navbar.Brand className="mb-0 h1">
+          <Navbar.Brand className="mb-0 h1 icon-link">
             <PersonWalking
-              className="text-primary-emphasis me-1 align-baseline"
+              className="text-primary-emphasis"
               title="Logo"
             />
             <span>{t("app.title")}</span>
@@ -33,16 +40,18 @@ function Header({ t }) {
           <Navbar.Toggle aria-controls="navbarSupportedContent" />
           <Navbar.Collapse id="navbarSupportedContent">
             <Nav className="ms-auto">
-              <Button
-                variant="secondary"
-                type="button"
-                className="nav-item btn"
-                data-bs-toggle="modal"
-                data-bs-target="#optionsModal"
-                onClick={handleShowOptionsClick}
-                title={t("options.title")}>
-                <Sliders className="mb-1" />
-              </Button>
+              <OverlayTrigger
+                placement="auto"
+                delay={{ show: 200 }}
+                overlay={(p) => <Tooltip {...p}>{t("options.title")}</Tooltip>}>
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={handleShowOptionsClick}
+                  title={t("options.title")}>
+                  <Sliders className="mb-1" />
+                </Button>
+              </OverlayTrigger>
             </Nav>
           </Navbar.Collapse>
         </Container>

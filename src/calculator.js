@@ -15,13 +15,20 @@ export function calc(today, stepsCompleted, stepsRequired) {
   if (dateFns.isValid(today)) {
     const monthStart = dateFns.startOfMonth(today);
     const monthEnd = dateFns.endOfMonth(today);
-    const daysRemaining = dateFns.differenceInDays(monthEnd, today);
+    // Add 1 to include the last day of the month
+    const daysRemaining = dateFns.differenceInDays(monthEnd, today) + 1;
     const stepsRemaining =
       stepsRequired > 0 ? stepsRequired - stepsCompleted : 0;
-    const stepsRemainingPerDay = Math.ceil(stepsRemaining / daysRemaining);
+    const stepsRemainingPerDay =
+      daysRemaining > 0
+        ? Math.ceil(stepsRemaining / daysRemaining)
+        : stepsRemaining;
     const daysPast = dateFns.differenceInDays(today, monthStart) + 1;
     const avgStepsPerDay = stepsCompleted / daysPast;
-    const projDaysRemain = Math.ceil(stepsRemaining / avgStepsPerDay);
+    const projDaysRemain =
+      avgStepsPerDay > 0
+        ? Math.ceil(stepsRemaining / avgStepsPerDay)
+        : undefined;
     const dayToComplete = dateFns.addDays(today, projDaysRemain);
     const fractionComplete = stepsCompleted / stepsRequired;
     values.avgStepsPerDay = avgStepsPerDay;
@@ -34,6 +41,7 @@ export function calc(today, stepsCompleted, stepsRequired) {
     values.stepsRemainingPerDay = stepsRemainingPerDay;
     values.stepsCompleted = stepsCompleted;
     values.stepsRequired = stepsRequired;
+    values.isBehind = dateFns.isAfter(dayToComplete, monthEnd);
   }
   return values;
 }

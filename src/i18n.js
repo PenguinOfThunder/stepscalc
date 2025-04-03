@@ -33,16 +33,16 @@ i18next
     fallbackLng: "en",
     nonExplicitSupportedLngs: true,
     // update when localizations are added
-    supportedLngs: ["en", "nb", "nn", "es"],
+    supportedLngs: ["en", "es", "nb", "nn"],
     partialBundledLanguages: true,
     // detection: {
     //   order: ["querystring", "localStorage", "navigator"]
     // },
     resources: {
       en: { translation: enUSTranslation },
+      es: { translation: esESTranslation },
       nb: { translation: nbNOTranslation },
-      nn: { translation: nnNOTranslation },
-      es: { translation: esESTranslation }
+      nn: { translation: nnNOTranslation }
     }
   });
 i18next.services.formatter.addCached("displayName", formatDisplayName);
