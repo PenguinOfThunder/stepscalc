@@ -10,7 +10,7 @@ import nnNOTranslation from "./locales/nn/translation.json";
 // Set debug mode based on environment
 const debugMode = process.env.NODE_ENV === "development";
 
-function formatDisplayName(lng, options) {
+export function formatDisplayName(lng, options = {}) {
   const toLang = [lng];
   if (options.to) {
     toLang.unshift(options.to);
