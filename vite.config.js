@@ -16,5 +16,10 @@ export default defineConfig({
   define: {
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version)
+  },
+  server: {
+    port: 5173,
+    // must expose host inside dev container
+    host: true
   }
 });
