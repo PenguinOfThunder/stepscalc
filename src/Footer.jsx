@@ -6,7 +6,9 @@ function Footer() {
     <footer className="container text-center">
       <div className="row">
         <div className="col text-end">
-          <small className="text-secondary">{__APP_NAME__} {__APP_VERSION__}</small>
+          <small className="text-secondary">
+            {__APP_NAME__} {__APP_VERSION__}
+          </small>
         </div>
         <div className="col text-start">
           <a

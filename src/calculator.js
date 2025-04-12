@@ -1,5 +1,14 @@
 import * as dateFns from "date-fns";
 
+/**
+ * Calculates various statistics related to step tracking for the current month.
+ *
+ * @param {Date} today - The current date.
+ * @param {number} stepsCompleted - The number of steps completed so far.
+ * @param {number} stepsRequired - The total number of steps required for the month.
+ * @returns {Object} An object containing calculated values such as average steps per day,
+ *    projected days remaining, and more.
+ */
 export function calc(today, stepsCompleted, stepsRequired) {
   const values = {
     today,
