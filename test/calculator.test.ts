@@ -7,7 +7,7 @@ describe("calculator", () => {
   it("works for invalid date", () => {
     const today = undefined;
     const stepsCompleted = Number.NaN;
-    const c = calc(today, stepsCompleted, stepsRequired);
+    const c = calc(today!, stepsCompleted, stepsRequired);
     expect(c.today).toBe(today);
     expect(c.stepsCompleted).toBe(stepsCompleted);
     expect(c.stepsRequired).toBe(stepsRequired);

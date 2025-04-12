@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+import App from "./App.tsx";
 import "./i18n.js";
 import "./stepscalc.scss";
 
-createRoot(document.getElementById("root")).render(
+const rootEl = document.getElementById("root");
+if (!rootEl) throw new Error("Root element not found");
+createRoot(rootEl).render(
   <StrictMode>
     <App />
   </StrictMode>

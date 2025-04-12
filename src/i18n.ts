@@ -24,8 +24,8 @@ const debugMode = process.env.NODE_ENV === "development";
  * const formatName = formatDisplayName('en', { to: 'fr' });
  * console.log(formatName('es')); // Outputs the display name of 'es' in French, falling back to English.
  */
-export function formatDisplayName(lng, options = {}) {
-  const toLang = [lng];
+export function formatDisplayName(lng: string | undefined, options: any = {}) {
+  const toLang: string[] = lng ? [lng] : [];
   if (options.to) {
     toLang.unshift(options.to);
   }
@@ -33,7 +33,7 @@ export function formatDisplayName(lng, options = {}) {
     type: "language",
     ...options
   });
-  return (value) => dnf.of(value);
+  return (value: any): string => value === undefined ? "" : dnf.of(value) ?? "";
 }
 
 // Localize
@@ -59,7 +59,7 @@ i18next
       nn: { translation: nnNOTranslation }
     }
   });
-i18next.services.formatter.addCached("displayName", formatDisplayName);
+i18next.services.formatter?.addCached("displayName", formatDisplayName);
 i18next.on("languageChanged", (lng) => {
   document.documentElement.setAttribute("lang", lng);
 });

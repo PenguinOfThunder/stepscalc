@@ -1,9 +1,9 @@
 /* eslint-disable require-jsdoc */
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-import Main from "./Main.jsx";
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
 import { usePreferredColorScheme } from "./hooks.js";
 import { useAppState } from "./store.js";
 
@@ -13,7 +13,11 @@ function App() {
   const theme = usePreferredColorScheme();
   useEffect(() => {
     if (themePref != "dark" && themePref != "light") {
-      document.documentElement.setAttribute("data-bs-theme", theme);
+      if (theme === undefined) {
+        document.documentElement.removeAttribute("data-bs-theme");
+      } else {
+        document.documentElement.setAttribute("data-bs-theme", theme);
+      }
     } else {
       document.documentElement.setAttribute("data-bs-theme", themePref);
     }
