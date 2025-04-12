@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import { useCallback, useMemo } from "react";
+import { ChangeEvent, useCallback, useMemo } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap";
 import {
   CircleHalf,
@@ -15,11 +15,20 @@ const goalSuggestions = [6000, 7000, 10_000, 15_000].map((ds) => ({
   monthly_steps: ds * 30
 }));
 
-function Options({ show, handleClose }) {
+function Options({
+  show,
+  handleClose
+}: {
+  show: boolean;
+  handleClose: () => void;
+}) {
   const { t, i18n } = useTranslation();
   const lng = i18n.language;
-  const lngList = useMemo(
-    () => i18n.options.supportedLngs.filter((l) => l !== "cimode"),
+  const lngList = useMemo<string[]>(
+    () =>
+      i18n.options.supportedLngs
+        ? i18n.options.supportedLngs.filter((l: string) => l !== "cimode")
+        : [],
     [i18n]
   );
   const changeTheme = useAppState((state) => state.changeTheme);
@@ -27,7 +36,7 @@ function Options({ show, handleClose }) {
   const changeGoal = useAppState((state) => state.changeGoal);
   const stepsRequired = useAppState((state) => state.stepsRequired);
 
-  const handleGoalChange = useCallback((e) => {
+  const handleGoalChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newGoal = Number.parseInt(e.currentTarget.value, 10);
     if (Number.isFinite(newGoal)) {
       changeGoal(newGoal);
@@ -37,14 +46,14 @@ function Options({ show, handleClose }) {
   }, []);
 
   const handleThemeChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLSelectElement>) => {
       changeTheme(e.currentTarget.value);
     },
     [changeTheme]
   );
 
   const handleLanguageChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLSelectElement>) => {
       const newLang = e.currentTarget.value;
       i18n.changeLanguage(newLang);
     },

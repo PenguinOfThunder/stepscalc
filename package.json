@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "clean": "rimraf dist",
     "lint": "eslint ./src",
-    "prettier:check": "prettier --check ./src"
+    "prettier:check": "prettier --check ./src",
+    "typecheck": "tsc --noEmit"
   },
   "homepage": "https://penguinofthunder.github.io/stepscalc/",
   "bugs": "https://github.com/PenguinOfThunder/stepscalc/issues",
