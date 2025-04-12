@@ -11,7 +11,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",
-    "lint": "eslint ./src",
     "prettier:check": "prettier --check ./src",
     "typecheck": "tsc --noEmit"
   },
@@ -56,5 +55,22 @@
     "react-dom": "^19.1.0",
     "react-i18next": "^15.4.1",
     "zustand": "^5.0.3"
+  },
+  "editorconfig": ".editorconfig",
+  "prettier": {
+    "arrowParens": "always",
+    "tabWidth": 2,
+    "endOfLine": "auto",
+    "bracketSpacing": true,
+    "singleQuote": false,
+    "jsxSingleQuote": false,
+    "bracketSameLine": true,
+    "trailingComma": "none",
+    "useTabs": false,
+    "proseWrap": "preserve",
+    "quoteProps": "consistent",
+    "semi": true,
+    "htmlWhitespaceSensitivity": "css",
+    "singleAttributePerLine": true
   }
 }
