@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
-export default {
+import type { PostProcessorModule } from "i18next";
+
+const displayNamesPostProcessor: PostProcessorModule = {
   type: "postProcessor",
   name: "displayNames",
 
@@ -23,7 +25,7 @@ export default {
 
     try {
       const displayNames = new Intl.DisplayNames(locale, {
-        type,
+        type: (type as Intl.DisplayNamesOptions["type"]),
         ...displayNamesOptions
       });
       return displayNames.of(value) || value;
@@ -33,3 +35,5 @@ export default {
     }
   }
 };
+
+export default displayNamesPostProcessor;

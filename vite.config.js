@@ -14,6 +14,7 @@ export default defineConfig({
   },
   plugins: [react()],
   define: {
+    // see https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version)
   },

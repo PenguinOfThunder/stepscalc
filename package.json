@@ -11,8 +11,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",
-    "lint": "eslint ./src",
-    "prettier:check": "prettier --check ./src"
+    "prettier:check": "prettier --check ./src",
+    "typecheck": "tsc --noEmit"
   },
   "homepage": "https://penguinofthunder.github.io/stepscalc/",
   "bugs": "https://github.com/PenguinOfThunder/stepscalc/issues",
@@ -26,6 +26,9 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.1.1",
     "eslint": "^8.57.1",
@@ -35,6 +38,7 @@
     "prettier": "^3.5.3",
     "sass-embedded": "^1.86.1",
     "standard": "^17.1.2",
+    "typescript": "^5.8.3",
     "vite": "^6.2.5",
     "vitest": "^3.0.9"
   },
@@ -45,13 +49,28 @@
     "date-fns": "^4.1.0",
     "i18next": "^24.2.3",
     "i18next-browser-languagedetector": "^8.0.4",
-    "import": "^0.0.6",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
     "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.55.0",
     "react-i18next": "^15.4.1",
     "zustand": "^5.0.3"
+  },
+  "editorconfig": ".editorconfig",
+  "prettier": {
+    "arrowParens": "always",
+    "tabWidth": 2,
+    "endOfLine": "auto",
+    "bracketSpacing": true,
+    "singleQuote": false,
+    "jsxSingleQuote": false,
+    "bracketSameLine": true,
+    "trailingComma": "none",
+    "useTabs": false,
+    "proseWrap": "preserve",
+    "quoteProps": "consistent",
+    "semi": true,
+    "htmlWhitespaceSensitivity": "css",
+    "singleAttributePerLine": true
   }
 }

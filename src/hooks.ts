@@ -7,18 +7,18 @@ import { useState, useEffect } from "react";
  * @returns {string} The currently preferred color scheme, according to the prefers-color-scheme media query
  */
 export function usePreferredColorScheme() {
-  const [scheme, setScheme] = useState();
+  const [scheme, setScheme] = useState<string>();
   useEffect(() => {
     const dmm = window.matchMedia("(prefers-color-scheme: dark)");
-    const del = (e) => {
+    const del = (e: MediaQueryListEvent) => {
       if (e.matches) setScheme("dark");
     };
     dmm.addEventListener("change", del);
-    // set inintial
+    // set initial
     if (dmm.matches) setScheme("dark");
 
     const lmm = window.matchMedia("(prefers-color-scheme: light)");
-    const lel = (e) => {
+    const lel = (e: MediaQueryListEvent) => {
       if (e.matches) setScheme("light");
     };
     lmm.addEventListener("change", lel);

@@ -1,6 +1,12 @@
 /* eslint-disable require-jsdoc */
 import * as dateFns from "date-fns";
-import { useCallback, useMemo } from "react";
+import {
+  ChangeEventHandler,
+  FocusEvent,
+  FormEventHandler,
+  useCallback,
+  useMemo
+} from "react";
 import {
   Alert,
   Button,
@@ -12,22 +18,22 @@ import {
 import {
   Calculator,
   CalendarDate,
-  Icon123,
   ExclamationTriangle,
   HandThumbsUp,
+  Icon123,
   Trophy
 } from "react-bootstrap-icons";
-import { useTranslation, withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/shallow";
 import { calc } from "./calculator";
 import { useAppState } from "./store";
 
-function selectAllOnFocus(e) {
+function selectAllOnFocus(e: FocusEvent<HTMLInputElement>) {
   e.currentTarget.select();
 }
 
 function Main() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
     useAppState(
@@ -46,7 +52,7 @@ function Main() {
     if (
       Number.isFinite(cv.avgStepsPerDay) &&
       Number.isFinite(cv.projDaysRemain) &&
-      cv.projDaysRemain > 0
+      (cv.projDaysRemain ?? 0) > 0
     ) {
       return t("predicted_days.text", {
         avgStepsPerDay: cv.avgStepsPerDay,
@@ -62,7 +68,7 @@ function Main() {
           }
         }
       });
-    } else if (cv.projDaysRemain <= 0) {
+    } else if ((cv.projDaysRemain ?? Infinity) <= 0) {
       // "Congratulations, you are done with your steps for the month!";
       return t("congrats.text");
     } else {
@@ -80,30 +86,34 @@ function Main() {
     t
   ]);
 
-  const handleChangeToday = useCallback((e) => {
-    const newDate = dateFns.parseISO(e.currentTarget.value);
-    if (dateFns.isValid(newDate)) {
-      setToday(newDate);
-    }
-  }, []);
-
-  const handleChangeStepsCompleted = useCallback(
+  const handleChangeToday: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      const count = Number.parseInt(e.currentTarget.value, 10);
-      if (Number.isFinite(count)) {
-        setStepsCompleted(count);
-      } else {
-        setStepsCompleted(0);
+      const newDate = dateFns.parseISO(e.currentTarget.value);
+      if (dateFns.isValid(newDate)) {
+        setToday(newDate);
       }
     },
-    [setStepsCompleted]
+    []
   );
 
-  const handleSubmit = useCallback((e) => {
+  const handleChangeStepsCompleted: ChangeEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        const count = Number.parseInt(e.currentTarget.value, 10);
+        if (Number.isFinite(count)) {
+          setStepsCompleted(count);
+        } else {
+          setStepsCompleted(0);
+        }
+      },
+      [setStepsCompleted]
+    );
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     return false;
-  });
+  }, []);
 
   return (
     <Container as={"main"}>
@@ -209,7 +219,7 @@ function Main() {
       <ProgressBar
         className="fw-bold fs-6 p-1"
         variant="success"
-        now={cv.fractionComplete * 100}
+        now={(cv.fractionComplete ?? 0) * 100}
         min={0}
         max={100}
         style={{ height: "2em" }}
@@ -222,7 +232,11 @@ function Main() {
 
       <Alert
         variant={
-          cv.isBehind ? "danger" : cv.projDaysRemain <= 0 ? "success" : "info"
+          cv.isBehind
+            ? "danger"
+            : (cv.projDaysRemain ?? Infinity) <= 0
+              ? "success"
+              : "info"
         }
         className="mt-2 d-flex align-items-center shadow">
         {cv.isBehind ? (
@@ -230,7 +244,7 @@ function Main() {
             className="flex-shrink-0"
             size={"24"}
           />
-        ) : cv.projDaysRemain <= 0 ? (
+        ) : (cv.projDaysRemain ?? Infinity) <= 0 ? (
           <Trophy
             className="flex-shrink-0"
             size={"24"}

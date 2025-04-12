@@ -13,3 +13,15 @@ A version is hosted on [GitHub pages](https://penguinofthunder.github.io/stepsca
 The calculator is localized with i18next.
 
 The English and Norwegian translations were hand-translated by the author, however the Spanish was translated by Copilot.
+
+## Development
+
+This tool is client-side only. There is no server component.
+
+For development, I use Visual Studio Code and [devcontainers](https://containers.dev/).
+
+If you are a developer and want to contribute, see [CONTRIBUTING](./CONTRIBUTING.md) and [CODE OF CONDUCT](/CODE_OF_CONDUCT.md).
+
+## Security
+
+See [SECURITY](./SECURITY.md).

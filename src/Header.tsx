@@ -9,12 +9,13 @@ import {
 } from "react-bootstrap";
 import { PersonWalking, Sliders } from "react-bootstrap-icons";
 import { createPortal } from "react-dom";
-import { withTranslation } from "react-i18next";
+import { useTranslation, withTranslation } from "react-i18next";
 import Options from "./Options";
 import { useAppState } from "./store";
 
 /* eslint-disable require-jsdoc */
-function Header({ t }) {
+function Header() {
+  const { t } = useTranslation();
   const showOptions = useAppState((state) => state.showOptions);
   const setShowOptions = useAppState((state) => state.setShowOptions);
   const handleShowOptionsClick = useCallback(() => {
@@ -42,7 +43,7 @@ function Header({ t }) {
             <Nav className="ms-auto">
               <OverlayTrigger
                 placement="auto"
-                delay={{ show: 200 }}
+                delay={{ show: 200, hide: 200 }}
                 overlay={(p) => <Tooltip {...p}>{t("options.title")}</Tooltip>}>
                 <Button
                   variant="secondary"
@@ -67,4 +68,4 @@ function Header({ t }) {
   );
 }
 
-export default withTranslation()(Header);
+export default Header;
