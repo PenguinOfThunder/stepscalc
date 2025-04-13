@@ -1,27 +1,17 @@
 /* eslint-disable require-jsdoc */
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { Form, InputGroup, Modal } from "react-bootstrap";
-import {
-  CircleHalf,
-  PersonWalking,
-  Sliders,
-  Translate
-} from "react-bootstrap-icons";
+import { Container, Form, InputGroup } from "react-bootstrap";
+import { CircleHalf, PersonWalking, Translate } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { useAppState } from "./store";
 
+// These are listed as a drop-down for browsers that support data lists
 const goalSuggestions = [6000, 7000, 10_000, 15_000].map((ds) => ({
   daily_steps: ds,
   monthly_steps: ds * 30
 }));
 
-function Options({
-  show,
-  handleClose
-}: {
-  show: boolean;
-  handleClose: () => void;
-}) {
+export function OptionsActivity() {
   const { t, i18n } = useTranslation();
   const lng = i18n.language;
   const lngList = useMemo<string[]>(
@@ -61,22 +51,12 @@ function Options({
   );
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      animation
-      backdrop="static"
-      scrollable>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <Sliders className="mb-1 me-2" />
-          {t("options.title")}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group controlId="daily-step-goal">
-            <Form.Label>{t("monthly_step_goal.label")}</Form.Label>
+    <Container>
+      <Form>
+        <fieldset>
+          <legend>{t("options.sections.goal.legend")}</legend>
+          <Form.Group controlId="options-daily-step-goal">
+            <Form.Label>{t("options.monthly_step_goal.label")}</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <PersonWalking />
@@ -89,42 +69,52 @@ function Options({
                 value={stepsRequired}
                 onChange={handleGoalChange}
                 list="goal-suggestions"
+                autoFocus
               />
               <datalist id="goal-suggestions">
                 {goalSuggestions.map((gs) => (
                   <option
                     key={gs.monthly_steps}
                     value={gs.monthly_steps}>
-                    {t("goal-suggestions.option.label", gs)}
+                    {t("options.monthly_step_goal.suggestions.label", gs)}
                   </option>
                 ))}
               </datalist>
             </InputGroup>
+            <Form.Text>{t("options.monthly_step_goal.help")}</Form.Text>
           </Form.Group>
-          <Form.Group controlId="app-theme-select">
-            <Form.Label>{t("theme.label")}</Form.Label>
+        </fieldset>
+        <fieldset>
+          <legend>{t("options.sections.app.legend")}</legend>
+          <Form.Group controlId="options-theme-select">
+            <Form.Label>{t("options.theme.label")}</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <CircleHalf />
               </InputGroup.Text>
               <Form.Select
-                name="app-theme"
                 value={theme}
                 onChange={handleThemeChange}>
-                <option value="auto">{t("theme.auto")}</option>
-                <option value="light">{t("theme.light")}</option>
-                <option value="dark">{t("theme.dark")}</option>
+                <option value="auto">
+                  {t("options.theme.options.auto.label")}
+                </option>
+                <option value="light">
+                  {t("options.theme.options.light.label")}
+                </option>
+                <option value="dark">
+                  {t("options.theme.options.dark.label")}
+                </option>
               </Form.Select>
             </InputGroup>
+            <Form.Text>{t("options.theme.help")}</Form.Text>
           </Form.Group>
-          <Form.Group controlId="app-lang-select">
-            <Form.Label>{t("app-lang.label")}</Form.Label>
+          <Form.Group controlId="options-lang-select">
+            <Form.Label>{t("options.lang.label")}</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <Translate />
               </InputGroup.Text>
               <Form.Select
-                name="app-lang"
                 value={lng}
                 onChange={handleLanguageChange}>
                 {lngList.map((lc) => (
@@ -132,16 +122,16 @@ function Options({
                     key={lc}
                     value={lc}
                     lang={lc}>
-                    {t("app-lang.option.label", { lang: lc, to: lc })} ({lc})
+                    {t("options.lang.option.label", { lang: lc, to: lc })} ({lc}
+                    )
                   </option>
                 ))}
               </Form.Select>
             </InputGroup>
+            <Form.Text>{t("options.lang.help")}</Form.Text>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-    </Modal>
+        </fieldset>
+      </Form>
+    </Container>
   );
 }
-
-export default Options;

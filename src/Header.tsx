@@ -1,69 +1,53 @@
-import { useCallback } from "react";
-import {
-  Button,
-  Container,
-  Nav,
-  Navbar,
-  OverlayTrigger,
-  Tooltip
-} from "react-bootstrap";
-import { PersonWalking, Sliders } from "react-bootstrap-icons";
-import { createPortal } from "react-dom";
-import { useTranslation, withTranslation } from "react-i18next";
-import Options from "./Options";
-import { useAppState } from "./store";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { PersonWalking } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
+import { Link as RRLink, NavLink as RRNavLink } from "react-router";
 
 /* eslint-disable require-jsdoc */
 function Header() {
   const { t } = useTranslation();
-  const showOptions = useAppState((state) => state.showOptions);
-  const setShowOptions = useAppState((state) => state.setShowOptions);
-  const handleShowOptionsClick = useCallback(() => {
-    setShowOptions(true);
-  }, [setShowOptions]);
-  const handleOptionsClose = useCallback(() => {
-    setShowOptions(false);
-  }, [setShowOptions]);
+
   return (
     <header className="bg-gradient">
       <Navbar
-        expand
+        expand="lg"
         variant="primary"
         className="mb-1">
         <Container fluid>
-          <Navbar.Brand className="mb-0 h1 icon-link">
-            <PersonWalking
-              className="text-primary-emphasis"
-              title="Logo"
-            />
-            <span>{t("app.title")}</span>
-          </Navbar.Brand>
+          <RRLink to="/">
+            <Navbar.Brand className="mb-0 h1 icon-link">
+              <PersonWalking
+                className="text-primary-emphasis"
+                title="Logo"
+              />
+              <span>{t("app.title")}</span>
+            </Navbar.Brand>
+          </RRLink>
           <Navbar.Toggle aria-controls="navbarSupportedContent" />
           <Navbar.Collapse id="navbarSupportedContent">
-            <Nav className="ms-auto">
-              <OverlayTrigger
-                placement="auto"
-                delay={{ show: 200, hide: 200 }}
-                overlay={(p) => <Tooltip {...p}>{t("options.title")}</Tooltip>}>
-                <Button
-                  variant="secondary"
-                  type="button"
-                  onClick={handleShowOptionsClick}
-                  title={t("options.title")}>
-                  <Sliders className="mb-1" />
-                </Button>
-              </OverlayTrigger>
+            <Nav className="me-auto">
+              <Nav.Link
+                as={RRNavLink}
+                to={"/"}
+                title={t("app.nav.today.title")}>
+                {t("app.nav.today.label")}
+              </Nav.Link>
+              <Nav.Link
+                as={RRNavLink}
+                to={"/history"}
+                title={t("app.nav.history.title")}>
+                {t("app.nav.history.label")}
+              </Nav.Link>
+              <Nav.Link
+                as={RRNavLink}
+                to={"/options"}
+                title={t("app.nav.options.title")}>
+                {t("app.nav.options.label")}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {createPortal(
-        <Options
-          show={showOptions}
-          handleClose={handleOptionsClose}
-        />,
-        document.body
-      )}
     </header>
   );
 }

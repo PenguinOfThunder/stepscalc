@@ -5,43 +5,98 @@
   "days_other": "días",
   "entries_one": "entrada",
   "entries_other": "entradas",
-  "app.title": "Calculadora de Pasos",
-  "options.title": "Opciones",
-  "today.label": "Fecha de Hoy",
-  "today.placeholder": "dd/mm/aaaa",
-  "steps_completed.label": "Pasos Completados Este Mes",
-  "steps_required.label": "Meta de Pasos Mensual",
-  "steps_remaining.label": "Pasos Restantes Este Mes",
-  "steps_remaining.value": "{{ value, number }}",
-  "steps_remaining_per_day.label": "Pasos Diarios Restantes Este Mes",
-  "steps_remaining_per_day.value": "{{ value, number }}",
-  "calc-btn.label": "Calcular",
-  "theme.label": "Tema",
-  "theme.auto": "Automático",
-  "theme.light": "Claro",
-  "theme.dark": "Oscuro",
-  "monthly_step_goal.label": "Meta mensual de pasos",
-  "close_btn.label": "Cerrar",
-  "hint.text": "Sugerencia: Rellena el formulario y presiona Calcular",
-  "predicted_days.text": "A tu ritmo actual de {{avgStepsPerDay, number(maximumFractionDigits:0)}} pasos por día, completarás tus pasos {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
-  "congrats.text": "¡Felicidades, has completado tus pasos del mes!",
-  "not.available": "N/D",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} de {{ stepsRequired,number(maximumFractionDigits:0) }}",
-  "app-lang.label": "Idioma",
-  "goal-suggestions.option.label": "{{ monthly_steps,number }} o alrededor de {{ daily_steps,number }} por día",
+  "app": {
+    "title": "Calculadora de Pasos",
+    "nav": {
+      "today": {
+        "label": "Hoy",
+        "title": "Progreso de hoy"
+      },
+      "history": {
+        "label": "Historial",
+        "title": "Conteos históricos"
+      },
+      "options": {
+        "label": "Opciones",
+        "title": "Configuración"
+      }
+    }
+  },
+  "main": {
+    "today": {
+      "label": "Fecha de Hoy",
+      "placeholder": "dd/mm/aaaa"
+    },
+    "steps_completed": {
+      "label": "Pasos Completados Este Mes"
+    },
+    "steps_remaining": {
+      "label": "Pasos Restantes Este Mes",
+      "value": "{{ value, number }}"
+    },
+    "steps_remaining_per_day": {
+      "label": "Pasos Diarios Restantes Este Mes",
+      "value": "{{ value, number }}"
+    },
+    "progress": {
+      "label": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} de {{ stepsRequired,number(maximumFractionDigits:0) }}"
+    },
+    "calc-btn": {
+      "label": "Calcular"
+    },
+    "message": {
+      "hint": "Sugerencia: Complete el formulario y presione Calcular",
+      "predicted_days": "A su ritmo actual de {{avgStepsPerDay, number(maximumFractionDigits:0)}} pasos por día, completará sus pasos {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
+      "congrats": "¡Felicidades, ha completado sus pasos para el mes!"
+    }
+  },
+  "options": {
+    "title": "Opciones",
+    "sections": {
+      "goal": {
+        "legend": "Personal"
+      },
+      "app": {
+        "legend": "Configuración de la Aplicación"
+      }
+    },
+    "monthly_step_goal": {
+      "label": "Meta mensual de pasos",
+      "help": "Seleccione cuántos pasos le gustaría alcanzar cada mes",
+      "suggestions": {
+        "label": "{{ monthly_steps,number }} o aproximadamente {{ daily_steps,number }} por día"
+      }
+    },
+    "theme": {
+      "label": "Tema",
+      "help": "Seleccione la apariencia de la aplicación",
+      "options": {
+        "auto": { "label": "Automático" },
+        "light": { "label": "Claro" },
+        "dark": { "label": "Oscuro" }
+      }
+    },
+    "lang": {
+      "label": "Idioma",
+      "help": "Seleccione el idioma de la aplicación",
+      "option": {
+        "label": "{{lang, displayName(type:language) }}"
+      }
+    }
+  },
   "history": {
     "title": "Registro de Pasos",
-    "help": "Este es un registro de tus pasos del mes. Puedes agregar, eliminar o editar entradas.",
+    "help": "Este es un registro de sus pasos para el mes. Puede agregar, eliminar o editar entradas.",
     "table": {
       "header": {
-      "date": "Fecha",
-      "steps": "Pasos"
+        "date": "Fecha",
+        "steps": "Pasos"
       },
       "rows": {
-      "date": "{{ value, datetime }}",
-      "steps": "{{ value, number(maximumFractionDigits:0) }}"
+        "date": "{{ value, datetime }}",
+        "steps": "{{ value, number(maximumFractionDigits:0) }}"
       },
-      "summary": "Se encontraron {{ count, number }} $t(entries, {\"count\": {{count}}}) entre {{ fromDate, datetime }} y {{ toDate, datetime }}",
+      "summary": "Se encontraron {{ count, number }} $t(entries, {\"count\": {{count}}}) entre {{ fromDate, datetime }} y {{ toDate, datetime }}. Pasos totales en el rango: {{ sum, number }}. Promedio: {{ avg, number }}",
       "caption": "Entradas del registro"
     },
     "close_btn": {
@@ -50,7 +105,7 @@
     },
     "add_btn": {
       "label": "Agregar",
-      "title": "Agregar al registro"
+      "title": "Agregar al historial"
     },
     "remove_btn": {
       "title": "Eliminar entrada",
@@ -79,7 +134,7 @@
       },
       "filter_btn_reset": {
         "label": "Restablecer",
-        "title": "Restablecer valores a la configuración predeterminada"
+        "title": "Restablecer valores a los predeterminados"
       }
     }
   }

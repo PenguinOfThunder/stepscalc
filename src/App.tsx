@@ -1,9 +1,12 @@
 /* eslint-disable require-jsdoc */
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Route, Routes } from "react-router";
 import Footer from "./Footer";
 import Header from "./Header";
+import { HistoryActivity } from "./HistoryModal.jsx";
 import Main from "./Main";
+import { OptionsActivity } from "./Options.jsx";
 import { usePreferredColorScheme } from "./hooks.js";
 import { useAppState } from "./store.js";
 
@@ -31,7 +34,22 @@ function App() {
   return (
     <>
       <Header />
-      <Main />
+      <Routes>
+        <Route path="/">
+          <Route
+            index
+            element={<Main />}
+          />
+          <Route
+            path="/history"
+            element={<HistoryActivity />}
+          />
+          <Route
+            path="/options"
+            element={<OptionsActivity />}
+          />
+        </Route>
+      </Routes>
       <Footer />
     </>
   );

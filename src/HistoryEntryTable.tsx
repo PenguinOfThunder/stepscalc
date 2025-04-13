@@ -27,6 +27,8 @@ export function HistoryEntryTable({
       )
       .toSorted((a, b) => -dateFns.differenceInMilliseconds(a.date, b.date));
   }, [historyData, filterFromDate, filterToDate]);
+  const seriesSum = seriesSorted.reduce((p, c) => p + c.steps, 0);
+  const seriesAvg = seriesSum / seriesSorted.length;
   return (
     <>
       <Table
@@ -52,7 +54,6 @@ export function HistoryEntryTable({
         <TransitionGroup
           component={"tbody"}
           className="item-list"
-          classNames="item"
           appear
           exit
           enter>
@@ -65,16 +66,14 @@ export function HistoryEntryTable({
         </TransitionGroup>
         <tfoot>
           <tr>
-            <td
-              colSpan={3}
-              className="text-end text-muted">
-              <small>
-                {t("history.table.summary", {
-                  count: seriesSorted.length,
-                  fromDate: filterFromDate,
-                  toDate: filterToDate
-                })}
-              </small>
+            <td colSpan={3} className="text-center">
+              {t("history.table.summary", {
+                count: seriesSorted.length,
+                sum: seriesSum,
+                avg: seriesAvg,
+                fromDate: filterFromDate,
+                toDate: filterToDate
+              })}
             </td>
           </tr>
         </tfoot>

@@ -5,45 +5,85 @@
   "days_other": "days",
   "entries_one": "entry",
   "entries_other": "entries",
-  "app.title": "Steps Calculator",
-  "options.title": "Options",
-  "today": {
-    "label": "Today's Date",
-    "placeholder": "mm/dd/yyyy"
+  "app": {
+    "title": "Steps Calculator",
+    "nav": {
+      "today": {
+        "label": "Today",
+        "title": "Progress today"
+      },
+      "history": {
+        "label": "History",
+        "title": "Historical counts"
+      },
+      "options": {
+        "label": "Options",
+        "title": "Settings"
+      }
+    }
   },
-  "steps_completed": {
-    "label": "Steps Completed This Month"
+  "main": {
+    "today": {
+      "label": "Today's Date",
+      "placeholder": "mm/dd/yyyy"
+    },
+    "steps_completed": {
+      "label": "Steps Completed This Month"
+    },
+    "steps_remaining": {
+      "label": "Steps Remaining This Month",
+      "value": "{{ value, number }}"
+    },
+    "steps_remaining_per_day": {
+      "label": "Daily Steps Remaining This Month",
+      "value": "{{ value, number }}"
+    },
+    "progress": {
+      "label": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} of {{ stepsRequired,number(maximumFractionDigits:0) }}"
+    },
+    "calc-btn": {
+      "label": "Calculate"
+    },
+    "message":{
+      "hint":"Hint: Fill in the form and press Calculate",
+      "predicted_days": "At your current rate of {{avgStepsPerDay, number(maximumFractionDigits:0)}} steps per day, you will complete your steps {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
+      "congrats": "Congratulations, you are done with your steps for the month!"
+    }
   },
-  "steps_required": {
-    "label": "Monthly Steps Goal"
+  "options": {
+    "title": "Options",
+    "sections": {
+      "goal": {
+        "legend": "Personal"
+      },
+      "app": {
+        "legend": "Application Settings"
+      }
+    },
+    "monthly_step_goal": {
+      "label": "Monthly step goal",
+      "help": "Select how many steps you would like to reach every month",
+      "suggestions": {
+        "label": "{{ monthly_steps,number }} or about {{ daily_steps,number }} per day"
+      }
+    },
+    "theme": {
+      "label": "Theme",
+      "help": "Select the appearance of the app",
+      "options": {
+        "auto": { "label": "Automatic" },
+        "light": { "label": "Light" },
+        "dark": { "label": "Dark" }
+      }
+    },
+    "lang": {
+      "label": "Language",
+      "help": "Select the language for the app",
+      "option": {
+        "label": "{{lang, displayName(type:language) }}"
+      }
+    }
   },
-  "steps_remaining": {
-    "label": "Steps Remaining This Month",
-    "value": "{{ value, number }}"
-  },
-  "steps_remaining_per_day": {
-    "label": "Daily Steps Remaining This Month",
-    "value": "{{ value, number }}"
-  },
-  "calc-btn.label": "Calculate",
-  "theme": {
-    "label": "Theme",
-    "auto": "Automatic",
-    "light": "Light",
-    "dark": "Dark"
-  },
-  "monthly_step_goal.label": "Monthly step goal",
-  "close_btn.label": "Close",
-  "hint.text": "Hint: Fill in the form and press Calculate",
-  "predicted_days.text": "At your current rate of {{avgStepsPerDay, number(maximumFractionDigits:0)}} steps per day, you will complete your steps {{projDaysRemain, relativetime(day)}}: {{dayToComplete,datetime}}.",
-  "congrats.text": "Congratulations, you are done with your steps for the month!",
-  "not.available": "N/A",
-  "progress.text": "{{ fractionComplete, number(style: percent; maximumFractionDigits: 0) }} of {{ stepsRequired,number(maximumFractionDigits:0) }}",
-  "app-lang": {
-    "label": "Language",
-    "option.label": "{{lang, displayName(type:language) }}"
-  },
-  "goal-suggestions.option.label": "{{ monthly_steps,number }} or about {{ daily_steps,number }} per day",
   "history": {
     "title": "Steps Log",
     "help": "This is a log of your steps for the month. You can add, remove, or edit entries.",
@@ -56,7 +96,7 @@
         "date": "{{ value, datetime }}",
         "steps": "{{ value, number(maximumFractionDigits:0) }}"
       },
-      "summary": "Found {{ count, number }} $t(entries, {\"count\": {{count}}}) between {{ fromDate, datetime }} and {{ toDate, datetime }}",
+      "summary": "Found {{ count, number }} $t(entries, {\"count\": {{count}}}) between {{ fromDate, datetime }} and {{ toDate, datetime }}. Total steps in range: {{ sum, number }}. Average: {{ avg, number }}",
       "caption": "Log entries"
     },
     "close_btn": {

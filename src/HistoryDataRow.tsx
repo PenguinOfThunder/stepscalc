@@ -40,7 +40,7 @@ export function HistoryDataRow({
               value: new Date(entry.date)
             })}
         </td>
-        <td className="numeric text-end">
+        <td className="font-monospace numeric text-end">
           {entry.steps && t("history.table.rows.steps", { value: entry.steps })}
         </td>
         <td className="text-center">
