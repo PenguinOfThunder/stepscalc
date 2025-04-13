@@ -57,7 +57,10 @@ i18next
       es: { translation: esESTranslation },
       nb: { translation: nbNOTranslation },
       nn: { translation: nnNOTranslation }
-    }
+    },
+    interpolation: {
+      escapeValue: false, // not needed for react!!
+    },
   });
 i18next.services.formatter?.addCached("displayName", formatDisplayName);
 i18next.on("languageChanged", (lng) => {

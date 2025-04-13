@@ -29,5 +29,31 @@
     "label": "Language",
     "option.label": "{{lang, displayName(type:language) }}"
   },
-  "goal-suggestions.option.label": "{{ monthly_steps,number }} or about {{ daily_steps,number }} per day"
+  "goal-suggestions.option.label": "{{ monthly_steps,number }} or about {{ daily_steps,number }} per day",
+  "history": {
+    "title": "Steps Log",
+    "help": "This is a log of your steps for the month. You can add, remove, or edit entries.",
+    "table": {
+      "header": {
+        "date": "Date",
+        "steps": "Steps"
+      },
+      "rows": {
+        "date": "{{ value, datetime }}",
+        "steps": "{{ value, number(maximumFractionDigits:0) }}"
+      }
+    },
+    "close_btn": {
+      "label": "Close",
+      "title": "Close dialog"
+    },
+    "add_btn": {
+      "label": "Add",
+      "title": "Add to history"
+    },
+    "remove_btn": {
+      "title": "Remove entry",
+      "label": "Remove"
+    }
+  }
 }

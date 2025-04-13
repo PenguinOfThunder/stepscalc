@@ -21,12 +21,14 @@ import {
   ExclamationTriangle,
   HandThumbsUp,
   Icon123,
-  Trophy
+  Trophy,
+  Table as TableIcon
 } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/shallow";
 import { calc } from "./calculator";
 import { useAppState } from "./store";
+import HistoryModal from "./HistoryModal";
 
 function selectAllOnFocus(e: FocusEvent<HTMLInputElement>) {
   e.currentTarget.select();
@@ -35,16 +37,25 @@ function selectAllOnFocus(e: FocusEvent<HTMLInputElement>) {
 function Main() {
   const { t } = useTranslation();
 
-  const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
-    useAppState(
-      useShallow((state) => ({
-        today: state.today,
-        setToday: state.setToday,
-        stepsCompleted: state.stepsCompleted,
-        stepsRequired: state.stepsRequired,
-        setStepsCompleted: state.setStepsCompleted
-      }))
-    );
+  const {
+    today,
+    setToday,
+    stepsCompleted,
+    setStepsCompleted,
+    stepsRequired,
+    showHistory,
+    setShowHistory
+  } = useAppState(
+    useShallow((state) => ({
+      today: state.today,
+      setToday: state.setToday,
+      stepsCompleted: state.stepsCompleted,
+      stepsRequired: state.stepsRequired,
+      setStepsCompleted: state.setStepsCompleted,
+      showHistory: state.showHistory,
+      setShowHistory: state.setShowHistory
+    }))
+  );
 
   const cv = calc(today, stepsCompleted, stepsRequired);
   // Determine message text
@@ -109,6 +120,10 @@ function Main() {
       [setStepsCompleted]
     );
 
+  const openHistoryModal = useCallback(() => {
+    setShowHistory(true);
+  }, []);
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -117,6 +132,10 @@ function Main() {
 
   return (
     <Container as={"main"}>
+      <HistoryModal
+        show={showHistory}
+        handleClose={() => setShowHistory(false)}
+      />
       <Form
         className="needs-validation"
         action="#"
@@ -154,9 +173,11 @@ function Main() {
               onFocus={selectAllOnFocus}
             />
             <Form.Label>{t("steps_completed.label")}</Form.Label>
-            <InputGroup.Text>
-              <Icon123 />
-            </InputGroup.Text>
+            <Button
+              onClick={openHistoryModal}
+              variant="secondary">
+              <TableIcon />
+            </Button>
           </InputGroup>
         </Form.Group>
 
