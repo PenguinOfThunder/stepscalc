@@ -14,4 +14,13 @@ describe("formatDisplayName", () => {
   it("Can do Norwegian to English", () => {
     expect(formatDisplayName("en")("no")).toBe("Norwegian");
   });
+  it("Can do region", () => {
+    expect(formatDisplayName("en", { to: "en", type: "region" })("US")).toBe("United States");
+  });
+  it("Can do currency", () => {
+    expect(formatDisplayName("en", { to: "en", type: "currency" })("USD")).toBe("US Dollar");
+  });
+  it("Can do script", () => {
+    expect(formatDisplayName("en", { to: "en", type: "script" })("Arab")).toBe("Arabic");
+  });
 });

@@ -12,19 +12,11 @@ const debugMode = process.env.NODE_ENV === "development";
 
 /**
  * Creates a function to format language display names using the Intl.DisplayNames API.
- *
- * @param {string} lng - The primary language to use for formatting.
- * @param {Object} [options={}] - Additional options for configuring the formatter.
- * @param {string} [options.to] - An optional secondary language to prioritize in formatting.
- * @param {string} [options.type="language"] - The type of names to format (default is "language").
- * @param {Object} [options.localeMatcher] - The locale matching algorithm to use ("lookup" or "best fit").
- * @returns {Function} A function that takes a language code and returns its formatted display name.
- *
  * @example
  * const formatName = formatDisplayName('en', { to: 'fr' });
  * console.log(formatName('es')); // Outputs the display name of 'es' in French, falling back to English.
  */
-export function formatDisplayName(lng: string | undefined, options: any = {}) {
+export function formatDisplayName(lng: string | undefined, options: { to?: string } & Partial<Intl.DisplayNamesOptions> = {}) {
   const toLang: string[] = lng ? [lng] : [];
   if (options.to) {
     toLang.unshift(options.to);
