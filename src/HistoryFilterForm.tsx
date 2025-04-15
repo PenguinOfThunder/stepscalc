@@ -41,13 +41,15 @@ export function HistoryFilterForm({
   const handleFromDateChange: ChangeEventHandler<HTMLInputElement> =
     useCallback(
       (e) => {
-        setFromDate(dateFns.parseISO(e.target.value));
+        const d = dateFns.parseISO(e.currentTarget.value);
+        if (dateFns.isValid(d)) setFromDate(d);
       },
       [setFromDate]
     );
   const handleToDateChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      setToDate(dateFns.parseISO(e.target.value));
+      const d = dateFns.parseISO(e.currentTarget.value);
+      if (dateFns.isValid(d)) setToDate(d);
     },
     [setToDate]
   );

@@ -42,7 +42,10 @@ export function HistoryAddEntryForm({
         <Form.Control
           type="date"
           value={dateFns.formatISO(addDate, { representation: "date" })}
-          onChange={(e) => setAddDate(dateFns.parseISO(e.target.value))}
+          onChange={(e) => {
+            const d = dateFns.parseISO(e.currentTarget.value);
+            if (dateFns.isValid(d)) setAddDate(d);
+          }}
           required
         />
       </FloatingLabel>
