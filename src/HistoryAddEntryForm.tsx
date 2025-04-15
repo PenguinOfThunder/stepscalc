@@ -26,7 +26,7 @@ export function HistoryAddEntryForm({
       e.preventDefault();
       addStepsEntry(addDate, addSteps);
       setAddSteps(0);
-      setAddDate(new Date());
+      // setAddDate(new Date());
     },
     [addDate, addSteps]
   );

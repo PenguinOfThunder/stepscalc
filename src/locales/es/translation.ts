@@ -140,6 +140,13 @@ const translation = {
         label: "Restablecer",
         title: "Restablecer valores a los predeterminados"
       }
+    },
+    chart: {
+      category: "{{ value, datetime(dateStyle: short) }}",
+      title: "Pasos desde {{ start, datetime }} hasta {{ end, datetime }}",
+      steps_set: {
+        label: "Pasos Diarios"
+      }
     }
   }
 };

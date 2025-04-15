@@ -140,6 +140,13 @@ const translation = {
         label: "Nullstill",
         title: "Set verdiane tilbake til standard"
       }
+    },
+    chart: {
+      category: "{{ value, datetime(dateStyle: short) }}",
+      title: "Steg fra {{ start, datetime }} til {{ end, datetime }}",
+      steps_set: {
+        label: "Daglige steg"
+      }
     }
   }
 };

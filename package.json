@@ -45,6 +45,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.8",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "i18next": "^24.2.3",
@@ -52,6 +53,7 @@
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
     "react-bootstrap-icons": "^1.11.5",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.4.1",
     "react-router": "^7.5.0",

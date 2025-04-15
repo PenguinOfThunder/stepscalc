@@ -140,6 +140,13 @@ const translation = {
         label: "Reset",
         title: "Set values back to defaults"
       }
+    },
+    chart: {
+      category: "{{ value, datetime(dateStyle: short) }}",
+      title: "Steps from {{ start, datetime }} to {{ end, datetime }}",
+      steps_set: {
+        label: "Daily Steps"
+      }
     }
   }
 };

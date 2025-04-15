@@ -136,6 +136,13 @@ const translation = {
         label: "Tilbakestill",
         title: "Sett verdier tilbake til standard"
       }
+    },
+    chart: {
+      category: "{{ value, datetime(dateStyle: short) }}",
+      title: "Steg fra {{ start, datetime }} til {{ end, datetime }}",
+      steps_set: {
+        label: "Daglige steg"
+      }
     }
   }
 };

@@ -7,6 +7,7 @@ import { HistoryAddEntryForm } from "./HistoryAddEntryForm";
 import { HistoryEntryTable } from "./HistoryEntryTable";
 import { HistoryFilterForm } from "./HistoryFilterForm";
 import { HistoryDataEntry, useAppState } from "./store";
+import { HistoryChart } from "./HistoryChart";
 
 export function HistoryActivity() {
   const { t } = useTranslation();
@@ -68,11 +69,25 @@ export function HistoryActivity() {
         </Tab>
       </Tabs>
 
-      <HistoryEntryTable
-        historyData={historyData}
-        filterFromDate={filterFromDate}
-        filterToDate={filterToDate}
-      />
+      <Tabs
+        defaultActiveKey="chart"
+        className="mt-2"
+        justify>
+        <Tab
+          title="Chart"
+          eventKey="chart">
+          <HistoryChart {...{ filterFromDate, filterToDate }} />
+        </Tab>
+        <Tab
+          title="Table"
+          eventKey="table">
+          <HistoryEntryTable
+            historyData={historyData}
+            filterFromDate={filterFromDate}
+            filterToDate={filterToDate}
+          />
+        </Tab>
+      </Tabs>
     </Container>
   );
 }
