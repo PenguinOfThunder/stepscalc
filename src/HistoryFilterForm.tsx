@@ -6,6 +6,7 @@ import {
   useState
 } from "react";
 import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
+import { Funnel, ArrowCounterclockwise } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 
 export function HistoryFilterForm({
@@ -97,6 +98,7 @@ export function HistoryFilterForm({
           type="submit"
           disabled={!isValid}
           title={t("history.filter.filter_btn.title")}>
+          <Funnel className="mb-1 me-1" />
           {t("history.filter.filter_btn.label")}
         </Button>
 
@@ -104,6 +106,7 @@ export function HistoryFilterForm({
           type="reset"
           variant="secondary"
           title={t("history.filter.filter_btn_reset.title")}>
+          <ArrowCounterclockwise className="me-1 mb-1" />
           {t("history.filter.filter_btn_reset.label")}
         </Button>
       </Stack>

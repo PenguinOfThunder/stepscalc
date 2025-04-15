@@ -34,21 +34,21 @@ export function Header() {
                 as={RRNavLink}
                 to={"/"}
                 title={t("app.nav.today.title")}>
-                <EmojiSmile className="me-1" />
+                <EmojiSmile className="me-1 mb-1" />
                 {t("app.nav.today.label")}
               </Nav.Link>
               <Nav.Link
                 as={RRNavLink}
                 to={"/history"}
                 title={t("app.nav.history.title")}>
-                <ClockHistory className="me-1" />
+                <ClockHistory className="me-1 mb-1" />
                 {t("app.nav.history.label")}
               </Nav.Link>
               <Nav.Link
                 as={RRNavLink}
                 to={"/options"}
                 title={t("app.nav.options.title")}>
-                <Gear className="me-1" />
+                <Gear className="me-1 mb-1" />
                 {t("app.nav.options.label")}
               </Nav.Link>
             </Nav>

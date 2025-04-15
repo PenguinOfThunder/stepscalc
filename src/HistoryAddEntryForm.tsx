@@ -1,6 +1,7 @@
 import * as dateFns from "date-fns";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
 import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
+import { PlusLg } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { selectAllOnFocus } from "./util";
 
@@ -69,6 +70,7 @@ export function HistoryAddEntryForm({
           variant="primary"
           title={t("history.add_btn.title")}
           disabled={!Number.isFinite(addSteps) || addSteps <= 0}>
+          <PlusLg className="me-1 mb-1" />
           {t("history.add_btn.label")}
         </Button>
       </Stack>
