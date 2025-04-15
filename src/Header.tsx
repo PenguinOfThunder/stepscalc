@@ -1,10 +1,14 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { PersonWalking } from "react-bootstrap-icons";
+import {
+  PersonWalking,
+  Gear,
+  ClockHistory,
+  EmojiSmile
+} from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { Link as RRLink, NavLink as RRNavLink } from "react-router";
 
-/* eslint-disable require-jsdoc */
-function Header() {
+export function Header() {
   const { t } = useTranslation();
 
   return (
@@ -30,18 +34,21 @@ function Header() {
                 as={RRNavLink}
                 to={"/"}
                 title={t("app.nav.today.title")}>
+                <EmojiSmile className="me-1" />
                 {t("app.nav.today.label")}
               </Nav.Link>
               <Nav.Link
                 as={RRNavLink}
                 to={"/history"}
                 title={t("app.nav.history.title")}>
+                <ClockHistory className="me-1" />
                 {t("app.nav.history.label")}
               </Nav.Link>
               <Nav.Link
                 as={RRNavLink}
                 to={"/options"}
                 title={t("app.nav.options.title")}>
+                <Gear className="me-1" />
                 {t("app.nav.options.label")}
               </Nav.Link>
             </Nav>
@@ -51,5 +58,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

@@ -58,11 +58,11 @@ export function HistoryFilterForm({
     dateFns.isAfter(toDate, fromDate);
   return (
     <Form
-      className="row"
+      className="row row-cols-1 row-cols-sm-3"
       onSubmit={handleSubmit}
       onReset={handleReset}>
       <FloatingLabel
-        className="col col-4"
+        className="col mt-1"
         controlId="fromDate"
         label={t("history.filter.fromDate.label")}>
         <Form.Control
@@ -77,7 +77,7 @@ export function HistoryFilterForm({
         />
       </FloatingLabel>
       <FloatingLabel
-        className="col col-4"
+        className="col mt-1"
         controlId="toDate"
         label={t("history.filter.toDate.label")}>
         <Form.Control
@@ -90,7 +90,7 @@ export function HistoryFilterForm({
         />
       </FloatingLabel>
       <Stack
-        className="col col-2 mt-3"
+        className="col mt-1"
         direction="horizontal"
         gap={2}>
         <Button

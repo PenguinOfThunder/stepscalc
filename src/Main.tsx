@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 import * as dateFns from "date-fns";
 import {
   ChangeEventHandler,
@@ -27,12 +26,9 @@ import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/shallow";
 import { calc } from "./calculator";
 import { useAppState } from "./store";
+import { selectAllOnFocus } from "./util";
 
-function selectAllOnFocus(e: FocusEvent<HTMLInputElement>) {
-  e.currentTarget.select();
-}
-
-function Main() {
+export function Main() {
   const { t } = useTranslation();
 
   const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
@@ -242,5 +238,3 @@ function Main() {
     </Container>
   );
 }
-
-export default Main;

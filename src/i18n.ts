@@ -3,10 +3,10 @@ import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 // statically imported translations
-import enUSTranslation from "./locales/en/translation.json";
-import esESTranslation from "./locales/es/translation.json";
-import nbNOTranslation from "./locales/nb/translation.json";
-import nnNOTranslation from "./locales/nn/translation.json";
+import enUSTranslation from "./locales/en/translation";
+import esESTranslation from "./locales/es/translation";
+import nbNOTranslation from "./locales/nb/translation";
+import nnNOTranslation from "./locales/nn/translation";
 // Set debug mode based on environment
 const debugMode = process.env.NODE_ENV === "development";
 
@@ -16,7 +16,10 @@ const debugMode = process.env.NODE_ENV === "development";
  * const formatName = formatDisplayName('en', { to: 'fr' });
  * console.log(formatName('es')); // Outputs the display name of 'es' in French, falling back to English.
  */
-export function formatDisplayName(lng: string | undefined, options: { to?: string } & Partial<Intl.DisplayNamesOptions> = {}) {
+export function formatDisplayName(
+  lng: string | undefined,
+  options: { to?: string } & Partial<Intl.DisplayNamesOptions> = {}
+) {
   const toLang: string[] = lng ? [lng] : [];
   if (options.to) {
     toLang.unshift(options.to);
@@ -25,7 +28,8 @@ export function formatDisplayName(lng: string | undefined, options: { to?: strin
     type: "language",
     ...options
   });
-  return (value: any): string => value === undefined ? "" : dnf.of(value) ?? "";
+  return (value: any): string =>
+    value === undefined ? "" : (dnf.of(value) ?? "");
 }
 
 // Localize
@@ -51,8 +55,8 @@ i18next
       nn: { translation: nnNOTranslation }
     },
     interpolation: {
-      escapeValue: false, // not needed for react!!
-    },
+      escapeValue: false // not needed for react!!
+    }
   });
 i18next.services.formatter?.addCached("displayName", formatDisplayName);
 i18next.on("languageChanged", (lng) => {

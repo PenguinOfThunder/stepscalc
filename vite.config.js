@@ -19,6 +19,7 @@ export default defineConfig({
     // see https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    __APP_URL__: JSON.stringify("https://github.com/PenguinOfThunder/stepscalc"),
     __BASE_URL__: JSON.stringify(basePath)
   },
   server: {

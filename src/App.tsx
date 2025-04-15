@@ -1,14 +1,13 @@
-/* eslint-disable require-jsdoc */
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes } from "react-router";
-import Footer from "./Footer";
-import Header from "./Header";
-import { HistoryActivity } from "./HistoryModal.jsx";
-import Main from "./Main";
-import { OptionsActivity } from "./Options.jsx";
-import { usePreferredColorScheme } from "./hooks.js";
-import { useAppState } from "./store.js";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { HistoryActivity } from "./HistoryActivity";
+import { Main } from "./Main";
+import { OptionsActivity } from "./Options";
+import { usePreferredColorScheme } from "./hooks";
+import { useAppState } from "./store";
 
 function App() {
   const { t, i18n } = useTranslation();

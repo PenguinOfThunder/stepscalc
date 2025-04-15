@@ -1,7 +1,8 @@
 import * as dateFns from "date-fns";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { selectAllOnFocus } from "./util";
 
 export function HistoryAddEntryForm({
   addStepsEntry,
@@ -14,10 +15,10 @@ export function HistoryAddEntryForm({
 }) {
   const { t } = useTranslation();
   const [addDate, setAddDate] = useState<Date>(today);
-  const [addSteps, setAddSteps] = useState<number>(stepsCompleted);
+  const [addSteps, setAddSteps] = useState<number>(0);
   useEffect(() => {
     setAddDate(today);
-    setAddSteps(stepsCompleted);
+    setAddSteps(0);
   }, [stepsCompleted, today]);
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     (e) => {
@@ -31,10 +32,10 @@ export function HistoryAddEntryForm({
 
   return (
     <Form
-      className="row"
+      className="row row-cols-1 row-cols-sm-3"
       onSubmit={handleSubmit}>
       <FloatingLabel
-        className="col col-5"
+        className="col mt-1"
         controlId="add_date"
         label={t("history.table.header.date")}>
         <Form.Control
@@ -47,26 +48,30 @@ export function HistoryAddEntryForm({
       <FloatingLabel
         label={t("history.table.header.steps")}
         controlId="add_steps"
-        className="col col-5">
+        className="col mt-1">
         <Form.Control
           type="number"
           min="0"
           value={addSteps}
           required
           onChange={(e) => setAddSteps(parseInt(e.target.value, 10))}
+          onFocus={selectAllOnFocus}
           autoFocus
         />
       </FloatingLabel>
-      <Form.Group className="col">
+
+      <Stack
+        className="col mt-1"
+        direction="horizontal"
+        gap={2}>
         <Button
-          className="mt-3"
           type="submit"
           variant="primary"
           title={t("history.add_btn.title")}
           disabled={!Number.isFinite(addSteps) || addSteps <= 0}>
           {t("history.add_btn.label")}
         </Button>
-      </Form.Group>
+      </Stack>
     </Form>
   );
 }
