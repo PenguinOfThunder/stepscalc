@@ -1,23 +1,23 @@
-import { useTranslation } from "react-i18next";
-import { HistoryDataEntry, useAppState } from "./store";
 import {
-  Chart as ChartJS,
-  Title,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend,
   BarElement,
+  CategoryScale,
   ChartData,
+  Chart as ChartJS,
   ChartOptions,
-  ChartTypeRegistry
+  ChartTypeRegistry,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip
 } from "chart.js";
 import chartJsPluginAnnotation from "chartjs-plugin-annotation";
-import { Chart } from "react-chartjs-2";
-import { useMemo } from "react";
 import * as dateFns from "date-fns";
+import { useMemo } from "react";
+import { Chart } from "react-chartjs-2";
+import { useTranslation } from "react-i18next";
+import { HistoryDataEntry, useAppState } from "./store";
 
 ChartJS.register(
   CategoryScale,
@@ -110,6 +110,7 @@ export function HistoryChart({
   const chartOptions = useMemo<ChartOptions<keyof ChartTypeRegistry>>(
     () => ({
       responsive: true,
+      maintainAspectRatio: false,
       locale: i18n.resolvedLanguage ?? "en",
       normalized: true,
       indexAxis: "x",
