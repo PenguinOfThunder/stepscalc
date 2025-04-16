@@ -103,13 +103,14 @@ export function HistoryFilterForm({
           <Funnel className="mb-1 me-1" />
           {t("history.filter.filter_btn.label")}
         </Button>
-
         <Button
           type="reset"
           variant="secondary"
           title={t("history.filter.filter_btn_reset.title")}>
           <ArrowCounterclockwise className="me-1 mb-1" />
-          {t("history.filter.filter_btn_reset.label")}
+          <span className="visually-hidden">
+            {t("history.filter.filter_btn_reset.label")}
+          </span>
         </Button>
       </Stack>
     </Form>

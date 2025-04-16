@@ -101,7 +101,7 @@ const translation = {
       },
       summary:
         'Found {{ count, number }} $t(entries, {"count": {{count}}}) between {{ fromDate, datetime }} and {{ toDate, datetime }}. Total steps in range: {{ sum, number }}. Average: {{ avg, number(maximumFractionDigits: 0) }}',
-      caption: "Log entries"
+      caption: "Daily steps log"
     },
     close_btn: {
       label: "Close",
@@ -114,6 +114,10 @@ const translation = {
     remove_btn: {
       title: "Remove entry",
       label: "Remove"
+    },
+    open_chart_btn: {
+      label: "Open chart",
+      title: "Open chart"
     },
     tabs: {
       add: {
@@ -143,9 +147,15 @@ const translation = {
     },
     chart: {
       category: "{{ value, datetime(dateStyle: short) }}",
-      title: "Steps from {{ start, datetime }} to {{ end, datetime }}",
+      title: "Steps from {{ start, datetime(dateStyle: long) }} to {{ end, datetime(dateStyle: long) }}",
       steps_set: {
         label: "Daily Steps"
+      },
+      cum_set: {
+        label: "Cumulative Steps"
+      },
+      goal_line: {
+        label: "Monthly goal"
       }
     }
   }
