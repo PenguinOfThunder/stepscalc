@@ -4,9 +4,12 @@ import { initReactI18next } from "react-i18next";
 
 // statically imported translations
 import enUSTranslation from "./locales/en/translation";
-import esESTranslation from "./locales/es/translation";
-import nbNOTranslation from "./locales/nb/translation";
-import nnNOTranslation from "./locales/nn/translation";
+import esTranslation from "./locales/es/translation";
+import nbTranslation from "./locales/nb/translation";
+import nnTranslation from "./locales/nn/translation";
+import deTranslation from "./locales/de/translation";
+import frTranslation from "./locales/fr/translation";
+
 // Set debug mode based on environment
 const debugMode = process.env.NODE_ENV === "development";
 
@@ -43,16 +46,18 @@ i18next
     fallbackLng: "en",
     nonExplicitSupportedLngs: true,
     // update when localizations are added
-    supportedLngs: ["en", "es", "nb", "nn"],
+    supportedLngs: ["en", "es", "fr", "de", "nb", "nn"],
     partialBundledLanguages: true,
     // detection: {
     //   order: ["querystring", "localStorage", "navigator"]
     // },
     resources: {
       en: { translation: enUSTranslation },
-      es: { translation: esESTranslation },
-      nb: { translation: nbNOTranslation },
-      nn: { translation: nnNOTranslation }
+      es: { translation: esTranslation },
+      nb: { translation: nbTranslation },
+      nn: { translation: nnTranslation },
+      de: { translation: deTranslation },
+      fr: { translation: frTranslation }
     },
     interpolation: {
       escapeValue: false // not needed for react!!
