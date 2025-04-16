@@ -1,5 +1,12 @@
 import * as dateFns from "date-fns";
-import { FormEventHandler, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  EventHandler,
+  FormEventHandler,
+  useCallback,
+  useEffect,
+  useState
+} from "react";
 import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
 import { PlusLg } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
@@ -31,6 +38,19 @@ export function HistoryAddEntryForm({
     [addDate, addSteps]
   );
 
+  const handleStepsInput: EventHandler<ChangeEvent<HTMLInputElement>> =
+    useCallback(
+      (e) => {
+        // since we only expect integers, strip out any extra characters like spaces, periods, and commas
+        const val = e.currentTarget.value.replaceAll(/\P{digit}/gu, "");
+        const num = val.trim() === "" ? 0 : Number.parseInt(val, 10);
+        if (Number.isFinite(num)) {
+          setAddSteps(num);
+        }
+      },
+      [setAddSteps]
+    );
+
   return (
     <Form
       className="row row-cols-1 row-cols-sm-3"
@@ -54,11 +74,11 @@ export function HistoryAddEntryForm({
         controlId="add_steps"
         className="col mt-1">
         <Form.Control
-          type="number"
+          type="text"
           min="0"
           value={addSteps}
           required
-          onChange={(e) => setAddSteps(parseInt(e.target.value, 10))}
+          onChange={handleStepsInput}
           onFocus={selectAllOnFocus}
           autoFocus
         />
