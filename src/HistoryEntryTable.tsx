@@ -1,7 +1,11 @@
 import * as dateFns from "date-fns";
 import { useCallback, useMemo, useState } from "react";
-import { Button, Modal, Table } from "react-bootstrap";
-import { BarChartLineFill } from "react-bootstrap-icons";
+import { Alert, Button, Modal, Table } from "react-bootstrap";
+import {
+  BarChartLineFill,
+  ChevronDown,
+  ChevronRight
+} from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { TransitionGroup } from "react-transition-group";
 import { HistoryChart } from "./HistoryChart";
@@ -51,6 +55,10 @@ export function HistoryEntryTable({
   );
   const seriesSum = seriesSorted.reduce((p, c) => p + c.steps, 0);
   const seriesAvg = seriesSum / seriesSorted.length;
+  const [showDetails, setShowDetails] = useState(false);
+  const toggleDetails = useCallback(() => {
+    setShowDetails(!showDetails);
+  }, [setShowDetails, showDetails]);
   return (
     <>
       {/* TODO decide if we need the title bar */}
@@ -77,17 +85,38 @@ export function HistoryEntryTable({
         hover>
         <caption style={{ captionSide: "top" }}>
           <Button
+            variant="info"
+            size="sm"
+            onClick={toggleDetails}
+            title={t("history.summary.toggle.title")}
+            className="float-start me-1 icon-link">
+            {showDetails ? <ChevronDown /> : <ChevronRight />}
+          </Button>
+          <Button
             size="sm"
             variant="info"
             onClick={handleOpenChartClick}
-            className="icon-link me-1"
+            className="float-end icon-link me-1"
             title={t("history.open_chart_btn.title")}>
             <BarChartLineFill />
             <span className="visually-hidden">
               {t("history.open_chart_btn.label")}
             </span>
           </Button>
-          {t("history.table.caption")}
+          <div className="mx-auto">{t("history.table.caption")}</div>
+          <Alert
+            className="mt-1"
+            variant="info"
+            show={showDetails}
+            transition={true}>
+            {t("history.table.summary", {
+              count: seriesSorted.length,
+              sum: seriesSum,
+              avg: seriesAvg,
+              fromDate: filterFromDate,
+              toDate: filterToDate
+            })}
+          </Alert>
         </caption>
         <thead>
           <tr>
@@ -113,21 +142,6 @@ export function HistoryEntryTable({
             />
           ))}
         </TransitionGroup>
-        <tfoot>
-          <tr>
-            <td
-              colSpan={3}
-              className="text-center">
-              {t("history.table.summary", {
-                count: seriesSorted.length,
-                sum: seriesSum,
-                avg: seriesAvg,
-                fromDate: filterFromDate,
-                toDate: filterToDate
-              })}
-            </td>
-          </tr>
-        </tfoot>
       </Table>
     </>
   );
