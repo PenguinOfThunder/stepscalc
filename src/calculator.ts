@@ -1,4 +1,5 @@
 import * as dateFns from "date-fns";
+import { HistoryDataEntry } from "./store";
 
 export type CalcValues = {
   today: Date;
@@ -24,7 +25,11 @@ export type CalcValues = {
  * @returns {Object} An object containing calculated values such as average steps per day,
  *    projected days remaining, and more.
  */
-export function calc(today: Date, stepsCompleted: number, stepsRequired: number): CalcValues {
+export function calc(
+  today: Date,
+  stepsCompleted: number,
+  stepsRequired: number
+): CalcValues {
   const values: CalcValues = {
     today,
     stepsCompleted,
@@ -71,4 +76,70 @@ export function calc(today: Date, stepsCompleted: number, stepsRequired: number)
     values.isBehind = dateFns.isAfter(dayToComplete, monthEnd);
   }
   return values;
+}
+
+export interface HistoryTableData {
+  data: HistoryDataEntry[];
+  /** Number of samples */
+  n: number;
+  /** Sum of all samples or 0 if none */
+  sum: number;
+  /** Average of samples over number of samples */
+  avg: number | undefined;
+  /** Start of filter interval */
+  intervalStart: number;
+  /** End of filter interval */
+  intervalEnd: number;
+  /** Actual first sample date */
+  actualStart: number | undefined;
+  /** Actual last sample date */
+  actualEnd: number | undefined;
+  /** Number of days in range */
+  actualRange: number | undefined;
+}
+
+export function buildTableData(
+  historyData: HistoryDataEntry[],
+  filterFromDate: Date,
+  filterToDate: Date
+): HistoryTableData {
+  const interval = {
+    start: dateFns.startOfDay(filterFromDate).getTime(),
+    end: dateFns.endOfDay(filterToDate).getTime()
+  };
+  const data = historyData
+    .filter(
+      (entry) => entry.date >= interval.start && entry.date <= interval.end
+    )
+    .toSorted((a, b) => -dateFns.differenceInMilliseconds(a.date, b.date));
+  const n = data.length; // N = number of items recorded, not days!
+  const sum = data.reduce((p, c) => p + c.steps, 0);
+  const avg = n != 0 ? sum / n : undefined;
+  // Find first actual recorded element
+  const actualStart = data
+    .map((e) => e.date)
+    .reduce<
+      number | undefined
+    >((p, c) => (p === undefined || c < p ? c : p), undefined);
+  // Find last actual recorded element
+  const actualEnd = data
+    .map((e) => e.date)
+    .reduce<
+      number | undefined
+    >((p, c) => (p === undefined || c > p ? c : p), undefined);
+  const actualRange =
+    actualStart && actualEnd
+      ? dateFns.differenceInDays(actualEnd, actualStart)
+      : undefined;
+  return {
+    data,
+    sum,
+    avg,
+    n,
+    intervalStart: interval.start,
+    intervalEnd: interval.end,
+    actualStart,
+    actualEnd,
+    actualRange
+  };
 }

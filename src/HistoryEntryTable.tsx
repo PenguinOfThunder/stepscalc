@@ -1,4 +1,3 @@
-import * as dateFns from "date-fns";
 import { useCallback, useMemo, useState } from "react";
 import { Alert, Button, Modal, Table } from "react-bootstrap";
 import {
@@ -8,25 +7,10 @@ import {
 } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { TransitionGroup } from "react-transition-group";
+import { buildTableData } from "./calculator";
 import { HistoryChart } from "./HistoryChart";
 import { HistoryDataRow } from "./HistoryDataRow";
 import { HistoryDataEntry } from "./store";
-
-function buildTableData(
-  historyData: HistoryDataEntry[],
-  filterFromDate: Date,
-  filterToDate: Date
-) {
-  const interval = {
-    start: dateFns.startOfDay(filterFromDate).getTime(),
-    end: dateFns.endOfDay(filterToDate).getTime()
-  };
-  return historyData
-    .filter(
-      (entry) => entry.date >= interval.start && entry.date <= interval.end
-    )
-    .toSorted((a, b) => -dateFns.differenceInMilliseconds(a.date, b.date));
-}
 
 export function HistoryEntryTable({
   historyData,
@@ -40,25 +24,30 @@ export function HistoryEntryTable({
   const { t } = useTranslation();
   const [showChart, setShowChart] = useState(false);
   const handleOpenChartClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    (_: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
       setShowChart(true);
     },
     [setShowChart]
   );
+
   const handleCloseChartClick = useCallback(() => {
     setShowChart(false);
   }, [setShowChart]);
 
-  const seriesSorted = useMemo(
-    () => buildTableData(historyData, filterFromDate, filterToDate),
-    [historyData, filterFromDate, filterToDate]
-  );
-  const seriesSum = seriesSorted.reduce((p, c) => p + c.steps, 0);
-  const seriesAvg = seriesSum / seriesSorted.length;
   const [showDetails, setShowDetails] = useState(false);
   const toggleDetails = useCallback(() => {
     setShowDetails(!showDetails);
   }, [setShowDetails, showDetails]);
+
+  const {
+    data: seriesSorted,
+    sum: seriesSum,
+    avg: seriesAvg
+  } = useMemo(
+    () => buildTableData(historyData, filterFromDate, filterToDate),
+    [historyData, filterFromDate, filterToDate]
+  );
+
   return (
     <>
       {/* TODO decide if we need the title bar */}

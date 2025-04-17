@@ -1,15 +1,9 @@
-import * as dateFns from "date-fns";
-import {
-  ChangeEvent,
-  EventHandler,
-  FormEventHandler,
-  useCallback,
-  useEffect,
-  useState
-} from "react";
+import { FormEventHandler, useCallback, useEffect, useState } from "react";
 import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
 import { PlusLg } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { DateInput } from "./DateInput";
+import { IntegerInput } from "./IntegerInput";
 import { selectAllOnFocus } from "./util";
 
 export function HistoryAddEntryForm({
@@ -37,19 +31,7 @@ export function HistoryAddEntryForm({
     },
     [addDate, addSteps]
   );
-
-  const handleStepsInput: EventHandler<ChangeEvent<HTMLInputElement>> =
-    useCallback(
-      (e) => {
-        // since we only expect integers, strip out any extra characters like spaces, periods, and commas
-        const val = e.currentTarget.value.replaceAll(/\P{digit}/gu, "");
-        const num = val.trim() === "" ? 0 : Number.parseInt(val, 10);
-        if (Number.isFinite(num)) {
-          setAddSteps(num);
-        }
-      },
-      [setAddSteps]
-    );
+  const isValid = !Number.isFinite(addSteps) || addSteps <= 0;
 
   return (
     <Form
@@ -59,31 +41,25 @@ export function HistoryAddEntryForm({
         className="col mt-1"
         controlId="add_date"
         label={t("history.table.header.date")}>
-        <Form.Control
-          type="date"
-          value={dateFns.formatISO(addDate, { representation: "date" })}
-          onChange={(e) => {
-            const d = dateFns.parseISO(e.currentTarget.value);
-            if (dateFns.isValid(d)) setAddDate(d);
-          }}
+        <DateInput
           required
+          onValueChange={setAddDate}
+          currentValue={addDate}
         />
       </FloatingLabel>
       <FloatingLabel
         label={t("history.table.header.steps")}
         controlId="add_steps"
         className="col mt-1">
-        <Form.Control
-          type="text"
-          min="0"
+        <IntegerInput
           value={addSteps}
+          onValueChange={setAddSteps}
+          min={0}
           required
-          onChange={handleStepsInput}
           onFocus={selectAllOnFocus}
           autoFocus
         />
       </FloatingLabel>
-
       <Stack
         className="col mt-1"
         direction="horizontal"
@@ -92,7 +68,7 @@ export function HistoryAddEntryForm({
           type="submit"
           variant="primary"
           title={t("history.add_btn.title")}
-          disabled={!Number.isFinite(addSteps) || addSteps <= 0}>
+          disabled={isValid}>
           <PlusLg className="me-1 mb-1" />
           {t("history.add_btn.label")}
         </Button>

@@ -1,13 +1,9 @@
 import * as dateFns from "date-fns";
-import {
-  ChangeEventHandler,
-  FormEventHandler,
-  useCallback,
-  useState
-} from "react";
+import { FormEventHandler, useCallback, useState } from "react";
 import { Button, FloatingLabel, Form, Stack } from "react-bootstrap";
-import { Funnel, ArrowCounterclockwise } from "react-bootstrap-icons";
+import { ArrowCounterclockwise, Funnel } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { DateInput } from "./DateInput";
 
 export function HistoryFilterForm({
   defaultFromDate,
@@ -38,21 +34,7 @@ export function HistoryFilterForm({
     },
     [setFromDate, setToDate, defaultFromDate, defaultToDate]
   );
-  const handleFromDateChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback(
-      (e) => {
-        const d = dateFns.parseISO(e.currentTarget.value);
-        if (dateFns.isValid(d)) setFromDate(d);
-      },
-      [setFromDate]
-    );
-  const handleToDateChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      const d = dateFns.parseISO(e.currentTarget.value);
-      if (dateFns.isValid(d)) setToDate(d);
-    },
-    [setToDate]
-  );
+
   const isValid =
     fromDate &&
     toDate &&
@@ -68,14 +50,10 @@ export function HistoryFilterForm({
         className="col mt-1"
         controlId="fromDate"
         label={t("history.filter.fromDate.label")}>
-        <Form.Control
-          type="date"
-          value={
-            fromDate
-              ? dateFns.formatISO(fromDate, { representation: "date" })
-              : ""
-          }
-          onChange={handleFromDateChange}
+        <DateInput
+          currentValue={fromDate}
+          onValueChange={setFromDate}
+          required
           title={t("history.filter.fromDate.title")}
         />
       </FloatingLabel>
@@ -83,12 +61,10 @@ export function HistoryFilterForm({
         className="col mt-1"
         controlId="toDate"
         label={t("history.filter.toDate.label")}>
-        <Form.Control
-          type="date"
-          value={
-            toDate ? dateFns.formatISO(toDate, { representation: "date" }) : ""
-          }
-          onChange={handleToDateChange}
+        <DateInput
+          currentValue={toDate}
+          onValueChange={setToDate}
+          required
           title={t("history.filter.toDate.title")}
         />
       </FloatingLabel>
