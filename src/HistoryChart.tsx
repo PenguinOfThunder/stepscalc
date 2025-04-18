@@ -13,11 +13,11 @@ import {
   Tooltip
 } from "chart.js";
 import chartJsPluginAnnotation from "chartjs-plugin-annotation";
-import * as dateFns from "date-fns";
 import { useMemo } from "react";
 import { Chart } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
-import { HistoryDataEntry, useAppState } from "./store";
+import { buildChartData } from "./calculator";
+import { useAppState } from "./store";
 
 ChartJS.register(
   CategoryScale,
@@ -159,11 +159,4 @@ export function HistoryChart({
       options={chartOptions}
     />
   );
-}
-function buildChartData(
-  historyData: HistoryDataEntry[],
-  filterFromDate: Date,
-  filterToDate: Date
-): any {
-  throw new Error("Function not implemented.");
 }
