@@ -6,3 +6,31 @@
 .progress-bar {
   overflow: visible;
 }
+.numeric {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.item-enter {
+  opacity: 0;
+  transform: scale(1, 0);
+}
+.item-enter-active {
+  opacity: 1;
+  transform: scale(1, 1);
+  transition: transform 250ms ease-in;
+}
+.item-enter-done {
+  opacity: 1;
+}
+.item-exit {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+.item-exit-active {
+  // opacity: 0;
+  transform: scale(1, 0);
+  transition: transform 250ms ease-in;
+}
+.item-exit-done {
+  display: none;
+}

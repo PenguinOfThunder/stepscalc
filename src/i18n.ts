@@ -3,28 +3,26 @@ import i18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 // statically imported translations
-import enUSTranslation from "./locales/en/translation.json";
-import esESTranslation from "./locales/es/translation.json";
-import nbNOTranslation from "./locales/nb/translation.json";
-import nnNOTranslation from "./locales/nn/translation.json";
+import enUSTranslation from "./locales/en/translation";
+import esTranslation from "./locales/es/translation";
+import nbTranslation from "./locales/nb/translation";
+import nnTranslation from "./locales/nn/translation";
+import deTranslation from "./locales/de/translation";
+import frTranslation from "./locales/fr/translation";
+
 // Set debug mode based on environment
 const debugMode = process.env.NODE_ENV === "development";
 
 /**
  * Creates a function to format language display names using the Intl.DisplayNames API.
- *
- * @param {string} lng - The primary language to use for formatting.
- * @param {Object} [options={}] - Additional options for configuring the formatter.
- * @param {string} [options.to] - An optional secondary language to prioritize in formatting.
- * @param {string} [options.type="language"] - The type of names to format (default is "language").
- * @param {Object} [options.localeMatcher] - The locale matching algorithm to use ("lookup" or "best fit").
- * @returns {Function} A function that takes a language code and returns its formatted display name.
- *
  * @example
  * const formatName = formatDisplayName('en', { to: 'fr' });
  * console.log(formatName('es')); // Outputs the display name of 'es' in French, falling back to English.
  */
-export function formatDisplayName(lng: string | undefined, options: any = {}) {
+export function formatDisplayName(
+  lng: string | undefined,
+  options: { to?: string } & Partial<Intl.DisplayNamesOptions> = {}
+) {
   const toLang: string[] = lng ? [lng] : [];
   if (options.to) {
     toLang.unshift(options.to);
@@ -33,7 +31,8 @@ export function formatDisplayName(lng: string | undefined, options: any = {}) {
     type: "language",
     ...options
   });
-  return (value: any): string => value === undefined ? "" : dnf.of(value) ?? "";
+  return (value: any): string =>
+    value === undefined ? "" : (dnf.of(value) ?? "");
 }
 
 // Localize
@@ -47,16 +46,21 @@ i18next
     fallbackLng: "en",
     nonExplicitSupportedLngs: true,
     // update when localizations are added
-    supportedLngs: ["en", "es", "nb", "nn"],
+    supportedLngs: ["en", "es", "fr", "de", "nb", "nn"],
     partialBundledLanguages: true,
     // detection: {
     //   order: ["querystring", "localStorage", "navigator"]
     // },
     resources: {
       en: { translation: enUSTranslation },
-      es: { translation: esESTranslation },
-      nb: { translation: nbNOTranslation },
-      nn: { translation: nnNOTranslation }
+      es: { translation: esTranslation },
+      nb: { translation: nbTranslation },
+      nn: { translation: nnTranslation },
+      de: { translation: deTranslation },
+      fr: { translation: frTranslation }
+    },
+    interpolation: {
+      escapeValue: false // not needed for react!!
     }
   });
 i18next.services.formatter?.addCached("displayName", formatDisplayName);

@@ -1,7 +1,6 @@
-/* eslint-disable require-jsdoc */
 import { Github } from "react-bootstrap-icons";
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="container text-center">
       <div className="row">
@@ -13,7 +12,7 @@ function Footer() {
         <div className="col text-start">
           <a
             className="link-secondary link-underline-opacity-0"
-            href="https://github.com/PenguinOfThunder/stepscalc"
+            href={__APP_URL__}
             target="_blank">
             <Github className="me-1" />
             <span>GitHub</span>
@@ -24,4 +23,3 @@ function Footer() {
   );
 }
 
-export default Footer;

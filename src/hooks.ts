@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 /**
  * Uses a media query to determine which is the prefers-color-scheme setting.
  * Will track it when it changes.
- * @returns {string} The currently preferred color scheme, according to the prefers-color-scheme media query
+ * @returns {string | undefined} The currently preferred color scheme, according to the prefers-color-scheme media query
  */
-export function usePreferredColorScheme() {
+export function usePreferredColorScheme(): string | undefined {
   const [scheme, setScheme] = useState<string>();
   useEffect(() => {
     const dmm = window.matchMedia("(prefers-color-scheme: dark)");

@@ -1,11 +1,13 @@
-/* eslint-disable require-jsdoc */
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Footer from "./Footer";
-import Header from "./Header";
-import Main from "./Main";
-import { usePreferredColorScheme } from "./hooks.js";
-import { useAppState } from "./store.js";
+import { Route, Routes } from "react-router";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { HistoryActivity } from "./HistoryActivity";
+import { Main } from "./Main";
+import { OptionsActivity } from "./Options";
+import { usePreferredColorScheme } from "./hooks";
+import { useAppState } from "./store";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -31,7 +33,22 @@ function App() {
   return (
     <>
       <Header />
-      <Main />
+      <Routes>
+        <Route path="/">
+          <Route
+            index
+            element={<Main />}
+          />
+          <Route
+            path="/history"
+            element={<HistoryActivity />}
+          />
+          <Route
+            path="/options"
+            element={<OptionsActivity />}
+          />
+        </Route>
+      </Routes>
       <Footer />
     </>
   );

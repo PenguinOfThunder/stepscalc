@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 import * as dateFns from "date-fns";
 import {
   ChangeEventHandler,
@@ -27,12 +26,9 @@ import { useTranslation } from "react-i18next";
 import { useShallow } from "zustand/shallow";
 import { calc } from "./calculator";
 import { useAppState } from "./store";
+import { selectAllOnFocus } from "./util";
 
-function selectAllOnFocus(e: FocusEvent<HTMLInputElement>) {
-  e.currentTarget.select();
-}
-
-function Main() {
+export function Main() {
   const { t } = useTranslation();
 
   const { today, setToday, stepsCompleted, setStepsCompleted, stepsRequired } =
@@ -54,7 +50,7 @@ function Main() {
       Number.isFinite(cv.projDaysRemain) &&
       (cv.projDaysRemain ?? 0) > 0
     ) {
-      return t("predicted_days.text", {
+      return t("main.message.predicted_days", {
         avgStepsPerDay: cv.avgStepsPerDay,
         projDaysRemain: cv.projDaysRemain,
         dayToComplete: cv.dayToComplete,
@@ -70,10 +66,10 @@ function Main() {
       });
     } else if ((cv.projDaysRemain ?? Infinity) <= 0) {
       // "Congratulations, you are done with your steps for the month!";
-      return t("congrats.text");
+      return t("main.message.congrats");
     } else {
       // "Hint: Fill in the form and press Calculate";
-      return t("hint.text");
+      return t("main.message.hint");
     }
   }, [
     cv.today,
@@ -131,9 +127,9 @@ function Main() {
               value={dateFns.formatISO(today, { representation: "date" })}
               onChange={handleChangeToday}
               required
-              placeholder={t("today.placeholder")}
+              placeholder={t("main.today.placeholder")}
             />
-            <Form.Label>{t("today.label")}</Form.Label>
+            <Form.Label>{t("main.today.label")}</Form.Label>
             <InputGroup.Text onClick={() => setToday(new Date())}>
               <CalendarDate />
             </InputGroup.Text>
@@ -153,42 +149,24 @@ function Main() {
               onChange={handleChangeStepsCompleted}
               onFocus={selectAllOnFocus}
             />
-            <Form.Label>{t("steps_completed.label")}</Form.Label>
+            <Form.Label>{t("main.steps_completed.label")}</Form.Label>
             <InputGroup.Text>
               <Icon123 />
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
 
-        {/* -- remove this permanently since it's already in options? --
-        <Form.Group controlId="steps_required">
-          <InputGroup className="form-floating mb-1">
-            <Form.Control
-              name="steps_required"
-              type="number"
-              value={stepsRequired}
-              min="0"
-              step="1000"
-              required
-              readOnly
-              placeholder="nnnnnn"
-            />
-            <Form.Label>{t("steps_required.label")}</Form.Label>
-            <InputGroup.Text>
-              <Icon123 />
-            </InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-        */}
         <Form.Group controlId="steps_remaining">
           <InputGroup className="form-floating mb-1">
             <Form.Control
               name="steps_remaining"
               readOnly
               placeholder="nnnnnn"
-              value={t("steps_remaining.value", { value: cv.stepsRemaining })}
+              value={t("main.steps_remaining.value", {
+                value: cv.stepsRemaining
+              })}
             />
-            <Form.Label>{t("steps_remaining.label")}</Form.Label>
+            <Form.Label>{t("main.steps_remaining.label")}</Form.Label>
           </InputGroup>
         </Form.Group>
 
@@ -198,11 +176,11 @@ function Main() {
               name="steps_remaining_per_day"
               readOnly
               placeholder="nnnn"
-              value={t("steps_remaining_per_day.value", {
+              value={t("main.steps_remaining_per_day.value", {
                 value: cv.stepsRemainingPerDay
               })}
             />
-            <Form.Label>{t("steps_remaining_per_day.label")}</Form.Label>
+            <Form.Label>{t("main.steps_remaining_per_day.label")}</Form.Label>
           </InputGroup>
         </Form.Group>
 
@@ -212,7 +190,7 @@ function Main() {
             type="submit"
             className="icon-link">
             <Calculator />
-            {t("calc-btn.label")}
+            {t("main.calc-btn.label")}
           </Button>
         </div>
       </Form>
@@ -223,7 +201,7 @@ function Main() {
         min={0}
         max={100}
         style={{ height: "2em" }}
-        label={t("progress.text", {
+        label={t("main.progress.label", {
           fractionComplete: cv.fractionComplete,
           stepsCompleted: cv.stepsCompleted,
           stepsRequired: cv.stepsRequired
@@ -260,5 +238,3 @@ function Main() {
     </Container>
   );
 }
-
-export default Main;
