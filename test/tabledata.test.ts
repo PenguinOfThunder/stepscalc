@@ -1,10 +1,11 @@
 import * as dateFns from "date-fns";
 import { describe, expect, it } from "vitest";
-import { buildTableData } from "../src/calculator";
+import { buildChartData, buildTableData } from "../src/calculator";
 import { HistoryDataEntry } from "../src/store";
 
 const fromDate = new Date(2025, 3, 1);
 const toDate = new Date(2025, 3, 30);
+const daysInRange = 30;
 
 const fromDateBOD = dateFns.startOfDay(fromDate);
 const toDateEOD = dateFns.endOfDay(toDate);
@@ -48,6 +49,61 @@ describe("buildTableData", () => {
     it("actualStart", () =>
       expect(actual.actualStart).toBe(fromDate.getTime()));
     it("actualEnd", () => expect(actual.actualEnd).toBe(toDate.getTime()));
-    it("actualRange", () => expect(actual.actualRange).toBe(29));
+    it("actualRange", () => expect(actual.actualRange).toBe(daysInRange));
+  });
+});
+
+
+describe("buildChartData", () => {
+  describe("empty set", () => {
+    const { categories, cumSeries, stepsSeries } = buildChartData(emptySampleData, fromDate, toDate);
+    it("categories length", () => {
+      expect(categories).not.toBeUndefined();
+      expect(categories.length).toBe(daysInRange);
+    });
+    it("cumSeries length", () => {
+      expect(cumSeries).not.toBeUndefined();
+      expect(cumSeries.length).toBe(daysInRange);
+    });
+    it("stepsSeries length", () => {
+      expect(stepsSeries).not.toBeUndefined();
+      expect(stepsSeries.length).toBe(daysInRange);
+    });
+    it("all stepsSeries are undefined", () => {
+      expect(stepsSeries).toSatisfy(
+        (a: number[]) => a.every(n => n === undefined)
+      );
+    });
+    it("all cumSeries are zero", () => {
+      expect(cumSeries).toSatisfy(
+        (a: number[]) => a.every(n => n === 0)
+      );
+    });
+  });
+
+  describe("not empty set", () => {
+    const { categories, cumSeries, stepsSeries } = buildChartData(testSampleData, fromDate, toDate);
+    it("categories length", () => {
+      expect(categories).not.toBeUndefined();
+      expect(categories.length).toBe(daysInRange);
+    });
+    it("cumSeries length", () => {
+      expect(cumSeries).not.toBeUndefined();
+      expect(cumSeries.length).toBe(daysInRange);
+    });
+    it("stepsSeries length", () => {
+      expect(stepsSeries).not.toBeUndefined();
+      expect(stepsSeries.length).toBe(daysInRange);
+    });
+    it("all stepsSeries are not undefined", () => {
+      expect(stepsSeries).toSatisfy(
+        (a: number[]) => a.every(n => n !== undefined && n > 0)
+      );
+    });
+    it("all cumSeries are not zero", () => {
+      expect(cumSeries).toSatisfy(
+        (a: number[]) => a.every(n => n !== 0 && n > 0)
+      );
+    });
   });
 });
