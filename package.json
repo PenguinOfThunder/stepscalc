@@ -1,6 +1,6 @@
 {
   "name": "stepscalc",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Set a goal for the month and use this at any time to calculate how many steps you need to take each day to reach your goal by the end of the month.",
   "type": "module",
   "private": true,
