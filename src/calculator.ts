@@ -98,6 +98,10 @@ export interface HistoryTableData {
   actualRange: number | undefined;
 }
 
+export const sortedByDate = (a: HistoryDataEntry, b: HistoryDataEntry) => dateFns.differenceInMilliseconds(a.date, b.date);
+
+export const sortedByDateReverse = (a: HistoryDataEntry, b: HistoryDataEntry) => -dateFns.differenceInMilliseconds(a.date, b.date);
+
 export function buildTableData(
   historyData: HistoryDataEntry[],
   filterFromDate: Date,
@@ -111,7 +115,7 @@ export function buildTableData(
     .filter(
       (entry) => entry.date >= interval.start && entry.date <= interval.end
     )
-    .toSorted((a, b) => -dateFns.differenceInMilliseconds(a.date, b.date));
+    .toSorted(sortedByDateReverse);
   const n = data.length; // N = number of items recorded, not days!
   const sum = data.reduce((p, c) => p + c.steps, 0);
   const avg = n != 0 ? sum / n : undefined;

@@ -119,7 +119,12 @@ const translation = {
       // Example: Logged 30 entries between 4/1/2025 and 4/30/2025. Total steps in range: 185,000. Average: 6,167.
       summary:
         'Enregistré {{ count, number }} $t(entries, {"count": {{count}}}) entre {{ fromDate, datetime(dateStyle: long) }} et {{ toDate, datetime(dateStyle: long) }}. Total des pas dans la plage : {{ sum, number }}. Moyenne : {{ avg, number(maximumFractionDigits: 0) }}',
-      caption: "Journal des pas quotidiens"
+      caption: "Journal des pas quotidiens",
+      download: {
+        title: "Télécharger des données lisibles par machine",
+        label: "Télécharger",
+        success: "Succès ! Les données ont été copiées dans votre presse-papiers."
+      }
     },
     close_btn: {
       label: "Fermer",

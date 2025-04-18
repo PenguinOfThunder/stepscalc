@@ -119,7 +119,12 @@ const translation = {
       // Example: Logged 30 entries between 4/1/2025 and 4/30/2025. Total steps in range: 185,000. Average: 6,167.
       summary:
         'Logget {{ count, number }} $t(entries, {"count": {{count}}}) mellom {{ fromDate, datetime(dateStyle: long) }} og {{ toDate, datetime(dateStyle: long) }}. Totalt antall skritt i perioden: {{ sum, number }}. Gjennomsnitt: {{ avg, number(maximumFractionDigits: 0) }}',
-      caption: "Daglig skrittlogg"
+      caption: "Daglig skrittlogg",
+      download: {
+        title: "Last ned maskinlesbare data",
+        label: "Last ned",
+        success: "Suksess! Dataene ble kopiert til utklippstavlen din."
+      }
     },
     close_btn: {
       label: "Lukk",
