@@ -31,62 +31,6 @@ ChartJS.register(
   chartJsPluginAnnotation
 );
 
-function buildChartData(
-  historyData: HistoryDataEntry[],
-  filterFromDate: Date,
-  filterToDate: Date
-): { categories: number[]; stepsSeries: number[]; cumSeries: number[] } {
-  const interval = {
-    start: filterFromDate.getTime(),
-    end: filterToDate.getTime()
-  };
-
-  // group data by day
-  const groupedData = historyData
-    // filter to range
-    .filter(
-      (entry) => entry.date >= interval.start && entry.date <= interval.end
-    )
-    // map to day and steps
-    .map((e) => ({
-      // stringify so it's a valid object key
-      day: String(dateFns.startOfDay(e.date).getTime()),
-      steps: e.steps
-    }))
-    // group by day, SUMing each data point
-    .reduce<{ [day: string]: number }>((p, c) => {
-      return { ...p, [c.day]: c.day in p ? p[c.day] + c.steps : c.steps };
-    }, {});
-
-  // turn into array sorted by keys
-  // use the date interval for keys to allow sparse data
-  const categories = dateFns
-    .eachDayOfInterval(interval)
-    .map((dt) => dt.getTime());
-  const stepsSeries = categories.map(
-    (c) => groupedData[String(c)] ?? undefined
-  );
-
-  // Get a cumulative sum of all steps in previous indexes
-  const cumSteps = categories.map((_, i) => {
-    // Handle month boundary: sum restarts at zero on the first of every month
-    // find the first of the month searching backwards from current index
-    const fom = categories
-      .slice(0, i)
-      .findLastIndex((v) => dateFns.isFirstDayOfMonth(v));
-    // If found, use that as the offset, otherwise use 0 (as far back as available)
-    return (
-      // Include current data point + all previous back to FOM
-      (stepsSeries[i] || 0) +
-      stepsSeries
-        .slice(fom > 0 ? fom : 0, i)
-        .reduce((p, c) => (c ? p + c : p), 0)
-    );
-  });
-
-  return { categories, stepsSeries, cumSeries: cumSteps };
-}
-
 export function HistoryChart({
   filterFromDate,
   filterToDate
@@ -178,7 +122,9 @@ export function HistoryChart({
   );
 
   const chartData: ChartData<keyof ChartTypeRegistry, number[]> = {
-    labels: categories.map((dt) => t("history.chart.category", { value: dt })),
+    labels: categories.map((dt: number) =>
+      t("history.chart.category", { value: dt })
+    ),
     datasets: [
       {
         type: "bar" as const,
@@ -213,4 +159,11 @@ export function HistoryChart({
       options={chartOptions}
     />
   );
+}
+function buildChartData(
+  historyData: HistoryDataEntry[],
+  filterFromDate: Date,
+  filterToDate: Date
+): any {
+  throw new Error("Function not implemented.");
 }
