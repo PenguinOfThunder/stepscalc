@@ -1,4 +1,5 @@
 import {
+  BarController,
   BarElement,
   CategoryScale,
   ChartData,
@@ -7,11 +8,12 @@ import {
   ChartTypeRegistry,
   Legend,
   LinearScale,
+  LineController,
   LineElement,
   PointElement,
   Title,
   Tooltip
-} from "chart.js";
+} from "chart.js/auto";
 import chartJsPluginAnnotation from "chartjs-plugin-annotation";
 import { useMemo } from "react";
 import { Chart } from "react-chartjs-2";
@@ -24,7 +26,9 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  LineController,
   BarElement,
+  BarController,
   Title,
   Tooltip,
   Legend,
