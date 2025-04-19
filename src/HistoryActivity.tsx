@@ -7,6 +7,7 @@ import { HistoryAddEntryForm } from "./HistoryAddEntryForm";
 import { HistoryEntryTable } from "./HistoryEntryTable";
 import { HistoryFilterForm } from "./HistoryFilterForm";
 import { HistoryDataEntry, useAppState } from "./store";
+import { MonthlyCalendar } from "./Calendar";
 
 export function HistoryActivity() {
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ export function HistoryActivity() {
 
   return (
     <Container>
+      <MonthlyCalendar today={new Date()} />
       <Tabs
         className="mb-2"
         defaultActiveKey="addEntry">

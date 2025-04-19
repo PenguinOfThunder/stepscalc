@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist, devtools } from "zustand/middleware";
 
 export interface HistoryDataEntry {
-  id: string,
+  id: string;
   date: number; // stored as number for easier (de)serialization
   steps: number;
 }
@@ -21,6 +21,7 @@ export interface AppState {
   changeGoal: (newGoal: number) => void;
   setShowOptions: (show: boolean) => void;
   setShowHistory: (show: boolean) => void;
+  findHistoryEntryByDate: (date: number) => HistoryDataEntry | undefined;
   addHistoryEntry: (entry: HistoryDataEntry) => void;
   removeHistoryEntry: (id: string) => void;
 }
@@ -28,7 +29,7 @@ export interface AppState {
 export const useAppState = create<AppState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         today: new Date(),
         setToday: (newDate: Date) => set({ today: newDate }),
         stepsCompleted: 0,
@@ -42,9 +43,16 @@ export const useAppState = create<AppState>()(
         showHistory: false,
         setShowHistory: (show: boolean) => set({ showHistory: show }),
         historyData: [],
-        addHistoryEntry: (entry: HistoryDataEntry) => set((state: AppState) => ({ historyData: [...state.historyData, entry] })),
-        removeHistoryEntry: (id: string) => set((state: AppState) =>
-          ({ historyData: state.historyData.filter((entry) => entry.id !== id) }))
+        findHistoryEntryByDate: (date: number) =>
+          get().historyData.find((e: HistoryDataEntry) => e.date === date),
+        addHistoryEntry: (entry: HistoryDataEntry) =>
+          set((state: AppState) => ({
+            historyData: [...state.historyData, entry]
+          })),
+        removeHistoryEntry: (id: string) =>
+          set((state: AppState) => ({
+            historyData: state.historyData.filter((entry) => entry.id !== id)
+          }))
       }),
       {
         name: "stepscalc-settings",
@@ -59,16 +67,20 @@ export const useAppState = create<AppState>()(
         migrate(persistedState, version) {
           if (version === 0) {
             // history was added in v 1
-            const oldState = persistedState as Pick<AppState, "stepsRequired" | "theme" | "stepsCompleted">;
+            const oldState = persistedState as Pick<
+              AppState,
+              "stepsRequired" | "theme" | "stepsCompleted"
+            >;
             return {
               ...oldState,
               historyData: []
             };
           }
           return persistedState;
-        },
+        }
       }
-    ))
+    )
+  )
 );
 
 // log for testing
