@@ -27,6 +27,7 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
@@ -37,6 +38,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.5",
+    "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "sass-embedded": "^1.86.1",
     "standard": "^17.1.2",

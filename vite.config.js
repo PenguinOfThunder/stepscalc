@@ -9,10 +9,13 @@ export default defineConfig({
     sourcemap: true
   },
   test: {
+    globals: true,
+    environment: "jsdom",
     coverage: {
       reporter: ["text", "json-summary", "json", "html"],
       reportOnFailure: true
-    }
+    },
+    setupFiles:["./test/setup.js"]
   },
   plugins: [react()],
   define: {
