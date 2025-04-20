@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Routes } from "react-router";
+import { HashRouter, Route, Routes } from "react-router";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { HistoryActivity } from "./HistoryActivity";
@@ -24,14 +24,13 @@ function App() {
       document.documentElement.setAttribute("data-bs-theme", themePref);
     }
   }, [theme, themePref]);
-
   useEffect(() => {
     // Update title on language change
     document.title = t("app.title");
   }, [i18n.language]);
 
   return (
-    <>
+    <HashRouter>
       <Header />
       <Routes>
         <Route path="/">
@@ -50,7 +49,7 @@ function App() {
         </Route>
       </Routes>
       <Footer />
-    </>
+    </HashRouter>
   );
 }
 

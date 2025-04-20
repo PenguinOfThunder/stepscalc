@@ -23,6 +23,7 @@ export default defineConfig({
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
     __APP_URL__: JSON.stringify("https://github.com/PenguinOfThunder/stepscalc"),
+    __APP_BUG_REPORT_URL__: JSON.stringify("https://github.com/PenguinOfThunder/stepscalc/issues"),
     __BASE_URL__: JSON.stringify(basePath)
   },
   server: {
