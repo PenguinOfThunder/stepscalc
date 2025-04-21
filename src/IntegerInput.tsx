@@ -1,14 +1,15 @@
-import { ChangeEvent, EventHandler, useCallback, useState } from "react";
+import { ChangeEvent, EventHandler, RefAttributes, useCallback, useState } from "react";
 import { Form, FormControlProps } from "react-bootstrap";
 
 export function IntegerInput({
   currentValue,
   onValueChange,
+  ref,
   ...rest
 }: {
   currentValue?: number;
   onValueChange: (num: number) => void;
-} & FormControlProps) {
+} & FormControlProps & RefAttributes<HTMLInputElement>) {
   const [inputValue, setInputValue] = useState<string>(String(currentValue));
   const handleChange: EventHandler<ChangeEvent<HTMLInputElement>> = useCallback(
     (e) => {
@@ -29,6 +30,7 @@ export function IntegerInput({
       inputMode="numeric"
       value={inputValue}
       onChange={handleChange}
+      ref={ref}
       {...rest}
     />
   );

@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "vitest run --run --coverage",
+    "test": "vitest run --run --coverage --typecheck",
     "test:watch": "vitest --watch",
     "coverage": "vitest --ui --coverage",
     "start": "vite",
