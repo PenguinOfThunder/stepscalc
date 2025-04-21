@@ -10,7 +10,7 @@ export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
         <h4 className="alert-heading">Error</h4>
         <p>
           An error occurred. Please report this using the{" "}
-          <a
+          <a data-testid="bug-report-link"
             className="alert-link"
             href={__APP_BUG_REPORT_URL__}>
             issue tracker
@@ -21,15 +21,14 @@ export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
           Make sure to check if your issue has already been reported before
           submitting.
         </p>
-        <p>
-          Please include this message in your report:
-          <pre>{error.message}</pre>
-        </p>
+        <p>Please include this message in your report:</p>
+        <pre data-testid="error-message">{error.message}</pre>
         <hr />
         <button
           className="btn btn-primary"
           type="button"
-          onClick={resetErrorBoundary}>
+          onClick={resetErrorBoundary}
+          data-testid="reset-error-boundary-button">
           Try Again
         </button>
       </div>

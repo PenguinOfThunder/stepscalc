@@ -31,10 +31,11 @@ export function HistoryAddEntryForm({
     },
     [addDate, addSteps]
   );
-  const isValid = !Number.isFinite(addSteps) || addSteps <= 0;
+  const isInvalid = !Number.isFinite(addSteps) || addSteps <= 0;
 
   return (
     <Form
+      data-testid="add-entry-form"
       className="row row-cols-1 row-cols-sm-3"
       onSubmit={handleSubmit}>
       <FloatingLabel
@@ -68,7 +69,7 @@ export function HistoryAddEntryForm({
           type="submit"
           variant="primary"
           title={t("history.add_btn.title")}
-          disabled={isValid}>
+          disabled={isInvalid}>
           <PlusLg className="me-1 mb-1" />
           {t("history.add_btn.label")}
         </Button>

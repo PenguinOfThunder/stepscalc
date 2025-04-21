@@ -6,12 +6,12 @@ const displayNamesPostProcessor: PostProcessorModule = {
   name: "displayNames",
 
   process: function (value, key, options, translator) {
-    console.log("DisplayNames post-processor called with:", {
-      value,
-      key,
-      options,
-      translator
-    });
+    // console.log("DisplayNames post-processor called with:", {
+    //   value,
+    //   key,
+    //   options,
+    //   translator
+    // });
     if (!Intl.DisplayNames) {
       console.warn("Intl.DisplayNames is not supported in this environment.");
       return value;

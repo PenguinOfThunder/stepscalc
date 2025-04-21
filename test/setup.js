@@ -23,7 +23,10 @@ vi.mock("react-i18next", () => ({
       // or with TypeScript:
       // t: (i18nKey: string) => i18nKey,
       i18n: {
-        changeLanguage: () => new Promise(() => {})
+        changeLanguage: () => new Promise(() => {}),
+        options: {
+          supportedLngs: ["en"]
+        }
       }
     };
   },
