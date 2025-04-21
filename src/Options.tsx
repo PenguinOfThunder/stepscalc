@@ -135,3 +135,5 @@ export function OptionsActivity() {
     </Container>
   );
 }
+
+export default OptionsActivity;

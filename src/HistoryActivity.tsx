@@ -78,3 +78,4 @@ export function HistoryActivity() {
     </Container>
   );
 }
+export default HistoryActivity;
