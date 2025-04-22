@@ -22,57 +22,64 @@ export function MonthlyCalendar({ today }: { today: Date }) {
     <Table
       bordered
       responsive>
-      <tr>
-        <th
-          colSpan={8}
-          className="text-center">
-          {t("{{ today, datetime(year: numeric; month: long) }}", { today })}
-        </th>
-      </tr>
-      <tr>
-        <th className="border text-center">
-          {/*t("history.calendar.week")*/}wk
-        </th>
-        {dateFns
-          .eachDayOfInterval({
-            start: dateFns.startOfWeek(interval.start, weekOptions),
-            end: dateFns.endOfWeek(interval.start, weekOptions)
-          })
-          .map((dow) => (
-            <th className="border text-center">
-              {t("{{ dow, datetime(weekday: short) }}", { dow })}
-            </th>
-          ))}
-      </tr>
-      {dateFns.eachWeekOfInterval(interval, weekOptions).map((firstDow) => (
+      <tbody>
         <tr>
-          <td className="border text-center text-muted">
-            {dateFns.getWeek(firstDow, weekOptions)}
-          </td>
+          <th
+            colSpan={8}
+            className="text-center">
+            {t("{{ today, datetime(year: numeric; month: long) }}", { today })}
+          </th>
+        </tr>
+        <tr>
+          <th className="border text-center">
+            {/*t("history.calendar.week")*/}wk
+          </th>
           {dateFns
             .eachDayOfInterval({
-              start: firstDow,
-              end: dateFns.lastDayOfWeek(firstDow, weekOptions)
+              start: dateFns.startOfWeek(interval.start, weekOptions),
+              end: dateFns.endOfWeek(interval.start, weekOptions)
             })
-            .map((day) => (
-              <td
-                className={classNames(["border", "text-center"], {
-                  "text-success": false,
-                  "text-muted": !dateFns.isSameMonth(day, today),
-                  "fw-bold": dateFns.isSameMonth(day, today),
-                  "text-danger": dateFns.isWeekend(day, weekOptions)
-                })}>
-                <Badge
-                  pill
-                  bg={classNames({
-                    success: findHistoryEntryByDate(day.getTime())
-                  })}>
-                  {t("{{ val, number }}", { val: day.getDate() })}
-                </Badge>
-              </td>
+            .map((dow, dowi) => (
+              <th
+                key={dowi}
+                className="border text-center">
+                {t("{{ dow, datetime(weekday: short) }}", { dow })}
+              </th>
             ))}
         </tr>
-      ))}
+        {dateFns
+          .eachWeekOfInterval(interval, weekOptions)
+          .map((firstDow, wi) => (
+            <tr key={wi}>
+              <td className="border text-center text-muted">
+                {dateFns.getWeek(firstDow, weekOptions)}
+              </td>
+              {dateFns
+                .eachDayOfInterval({
+                  start: firstDow,
+                  end: dateFns.lastDayOfWeek(firstDow, weekOptions)
+                })
+                .map((day, di) => (
+                  <td
+                    key={di}
+                    className={classNames(["border", "text-center"], {
+                      "text-success": false,
+                      "text-muted": !dateFns.isSameMonth(day, today),
+                      "fw-bold": dateFns.isSameMonth(day, today),
+                      "text-danger": dateFns.isWeekend(day, weekOptions)
+                    })}>
+                    <Badge
+                      pill
+                      bg={classNames({
+                        success: findHistoryEntryByDate(day.getTime())
+                      })}>
+                      {t("{{ val, number }}", { val: day.getDate() })}
+                    </Badge>
+                  </td>
+                ))}
+            </tr>
+          ))}
+      </tbody>
     </Table>
   );
 }
