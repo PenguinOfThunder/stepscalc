@@ -35,3 +35,5 @@ vi.mock("react-i18next", () => ({
     init: () => {}
   }
 }));
+
+HTMLCanvasElement.prototype.getContext = vi.fn();

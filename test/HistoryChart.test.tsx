@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { describe, it } from "vitest";
+import { describe, it, vi } from "vitest";
 import { HistoryChart } from "../src/HistoryChart";
 
 describe("HistoryActivity", () => {
