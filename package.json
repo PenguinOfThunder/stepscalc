@@ -12,7 +12,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "homepage": "https://penguinofthunder.github.io/stepscalc/",
   "bugs": "https://github.com/PenguinOfThunder/stepscalc/issues",
@@ -30,6 +31,7 @@
     "@types/node": "^24.1.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@vite-pwa/assets-generator": "^1.0.0",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.1.2",
@@ -38,6 +40,7 @@
     "standard": "^17.1.2",
     "typescript": "^5.8.3",
     "vite": "^7.0.6",
+    "vite-plugin-pwa": "^1.0.2",
     "vitest": "^3.1.2"
   },
   "dependencies": {

@@ -1,6 +1,8 @@
+// @ts-check
+import { VitePWA } from 'vite-plugin-pwa'
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-
+import pwaAssetsConfig from "./pwa-assets.config";
 const basePath = "/stepscalc/";
 
 export default defineConfig({
@@ -17,7 +19,16 @@ export default defineConfig({
     },
     setupFiles: ["./test/setup.js"]
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: false,
+      base: basePath,
+      pwaAssets: pwaAssetsConfig
+    })
+
+  ],
   define: {
     // see https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
