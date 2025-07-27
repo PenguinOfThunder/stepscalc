@@ -1,14 +1,15 @@
 {
   "name": "Steps Calculator",
   "short_name": "StepsCalc",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0d6efd",
   "description": "Calculate steps needed to reach your monthly goal.",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "./favicon.svg",
       "sizes": "192x192"
     }
   ]
