@@ -47,8 +47,8 @@ export function calc(
   if (dateFns.isValid(today)) {
     const monthStart = dateFns.startOfMonth(today);
     const monthEnd = dateFns.endOfMonth(today);
-    // Add 1 to include the last day of the month
-    const daysRemaining = dateFns.differenceInDays(monthEnd, today) + 1;
+    // This is the number of days *after* today
+    const daysRemaining = dateFns.differenceInCalendarDays(monthEnd, today);
     const stepsRemaining =
       stepsRequired > 0 ? stepsRequired - stepsCompleted : 0;
     const stepsRemainingPerDay =

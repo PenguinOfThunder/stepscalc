@@ -20,7 +20,7 @@ describe("calculator", () => {
     const today = new Date("2025-03-01 00:00");
     const stepsCompleted = 0;
     const stepsRemaining = stepsRequired - stepsCompleted;
-    const daysRemaining = 31;
+    const daysRemaining = 30; // 30 days *after* today
     const c = calc(today, stepsCompleted, stepsRequired);
     // console.log(c);
     expect(c.today).toEqual(today);
@@ -39,7 +39,7 @@ describe("calculator", () => {
   it("works for near the end of the month", () => {
     const today = new Date("2025-03-30 00:00");
     const stepsCompleted = 175000;
-    const daysRemaining = 2;
+    const daysRemaining = 1; // 3/31 remains *after today*
     const c = calc(today, stepsCompleted, stepsRequired);
     // console.log(c);
     expect(c.today).toEqual(today);
