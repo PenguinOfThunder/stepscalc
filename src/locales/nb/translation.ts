@@ -56,8 +56,8 @@ const translation = {
       hint: "Tips: Fyll ut skjemaet og trykk Beregn",
       // Example: At your current rate of 6,200 steps per day, you will complete your steps in 3 days: 4/27/2025
       predicted_days:
-        "Med din nåværende hastighet på {{avgStepsPerDay, number(maximumFractionDigits:0)}} skritt per dag, vil du fullføre skrittene dine om {{projDaysRemain, relativetime(day)}}: {{dayToComplete, datetime}}.",
-      congrats: "Gratulerer, du er ferdig med skrittene dine for måneden!"
+        "Med din nåværende skrittrate på {{avgStepsPerDay, number(maximumFractionDigits:0)}} skritt per dag, vil du fullføre skrittene dine {{projDaysRemain, relativetime(day)}}: {{dayToComplete, datetime}}.",
+      congrats: "Gratulerer, du er ferdig med skrittene dine for denne måneden!"
     }
   },
   options: {
