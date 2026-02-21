@@ -6,8 +6,8 @@ import { CrashMessage } from "./CrashMessage.tsx";
 import "./i18n.js";
 import "./stepscalc.scss";
 
-function logError(error: Error, info: ErrorInfo) {
-  // console.error(error, info);
+function logError(error: unknown, info: ErrorInfo) {
+  console.error(error, info);
   // TODO log to some API
 }
 
