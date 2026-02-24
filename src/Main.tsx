@@ -1,8 +1,7 @@
 import * as dateFns from "date-fns";
 import {
   ChangeEventHandler,
-  FocusEvent,
-  FormEventHandler,
+  SubmitEventHandler,
   useCallback,
   useMemo
 } from "react";
@@ -105,11 +104,26 @@ export function Main() {
       [setStepsCompleted]
     );
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     return false;
   }, []);
+
+  const handleGotoTodayClick = useCallback(
+    () => setToday(new Date()),
+    [setToday]
+  );
+
+  const handlePasteClick = useCallback(() => {
+    navigator.clipboard.readText().then((text) => {
+      text = text.replace(/[^0-9]/g, ""); // remove spaces, commas, non-digits
+      const count = Number.parseInt(text, 10);
+      if (Number.isFinite(count)) {
+        setStepsCompleted(count);
+      }
+    });
+  }, [setStepsCompleted]);
 
   return (
     <Container as={"main"}>
@@ -130,7 +144,7 @@ export function Main() {
               placeholder={t("main.today.placeholder")}
             />
             <Form.Label>{t("main.today.label")}</Form.Label>
-            <InputGroup.Text onClick={() => setToday(new Date())}>
+            <InputGroup.Text onClick={handleGotoTodayClick}>
               <CalendarDate />
             </InputGroup.Text>
           </InputGroup>
@@ -150,7 +164,7 @@ export function Main() {
               onFocus={selectAllOnFocus}
             />
             <Form.Label>{t("main.steps_completed.label")}</Form.Label>
-            <InputGroup.Text>
+            <InputGroup.Text onClick={handlePasteClick}>
               <Icon123 />
             </InputGroup.Text>
           </InputGroup>
