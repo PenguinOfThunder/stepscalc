@@ -1,6 +1,7 @@
 import { FallbackProps } from "react-error-boundary";
 
 export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
+  const errorMessage = error instanceof Error ? error.message : String(error);
   return (
     <div className="container mt-1">
       <div
@@ -22,7 +23,7 @@ export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
           submitting.
         </p>
         <p>Please include this message in your report:</p>
-        <pre data-testid="error-message">{error.message}</pre>
+        <pre data-testid="error-message">{errorMessage}</pre>
         <hr />
         <button
           className="btn btn-primary"
