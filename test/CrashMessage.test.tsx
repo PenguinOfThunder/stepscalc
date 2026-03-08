@@ -5,10 +5,7 @@ import { CrashMessage } from "../src/CrashMessage";
 
 describe("CrashMessage", () => {
   it("Should render", async () => {
-    const error: Error = {
-      name: "TEST",
-      message: "UNIT TEST"
-    };
+    const error: Error = new Error("UNIT TEST");
     const resetErrorBoundary = vi.fn(function () {});
     render(
       <CrashMessage

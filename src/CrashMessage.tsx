@@ -1,7 +1,7 @@
-import { FallbackProps } from "react-error-boundary";
+import { getErrorMessage, type FallbackProps } from "react-error-boundary";
 
 export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
-  const errorMessage = error instanceof Error ? error.message : String(error);
+  const errorMessage = getErrorMessage(error);
   return (
     <div className="container mt-1">
       <div
@@ -11,7 +11,8 @@ export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
         <h4 className="alert-heading">Error</h4>
         <p>
           An error occurred. Please report this using the{" "}
-          <a data-testid="bug-report-link"
+          <a
+            data-testid="bug-report-link"
             className="alert-link"
             href={__APP_BUG_REPORT_URL__}>
             issue tracker
@@ -22,8 +23,12 @@ export function CrashMessage({ error, resetErrorBoundary }: FallbackProps) {
           Make sure to check if your issue has already been reported before
           submitting.
         </p>
-        <p>Please include this message in your report:</p>
-        <pre data-testid="error-message">{errorMessage}</pre>
+        {errorMessage && (
+          <>
+            <p>Please include this message in your report:</p>
+            <pre data-testid="error-message">{errorMessage}</pre>
+          </>
+        )}
         <hr />
         <button
           className="btn btn-primary"
