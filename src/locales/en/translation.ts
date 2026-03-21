@@ -26,6 +26,10 @@ const translation = {
         label: "Options",
         title: "Settings"
       }
+    },
+    footer: {
+      issues: "Report Bug",
+      github: "GitHub"
     }
   },
   main: {

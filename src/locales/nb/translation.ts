@@ -26,6 +26,10 @@ const translation = {
         label: "Alternativer",
         title: "Innstillinger"
       }
+    },
+    footer: {
+      issues: "Rapportér feil",
+      github: "GitHub"
     }
   },
   main: {

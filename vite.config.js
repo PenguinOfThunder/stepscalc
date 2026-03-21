@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import pwaAssetsConfig from "./pwa-assets.config";
 const basePath = "/stepscalc/";
+const repoHome = "https://github.com/PenguinOfThunder/stepscalc";
+const appHome = "https://penguinofthunder.github.io/stepscalc/";
 
 export default defineConfig({
   base: basePath,
@@ -33,12 +35,9 @@ export default defineConfig({
     // see https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars
     __APP_NAME__: JSON.stringify(process.env.npm_package_name),
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-    __APP_URL__: JSON.stringify(
-      "https://penguinofthunder.github.io/stepscalc/"
-    ),
-    __APP_BUG_REPORT_URL__: JSON.stringify(
-      "https://github.com/PenguinOfThunder/stepscalc/issues"
-    ),
+    __APP_URL__: JSON.stringify(appHome),
+    __APP_SOURCE_CODE_URL__: JSON.stringify(repoHome),
+    __APP_BUG_REPORT_URL__: JSON.stringify(`${repoHome}/issues`),
     __BASE_URL__: JSON.stringify(basePath)
   },
   server: {
