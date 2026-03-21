@@ -6,13 +6,15 @@ Set a goal for the month and use this at any time to calculate how many steps yo
 
 There is no server-side component. It all runs in your browser.
 
+**This means your data is not shared between computers, and it will be cleared if you clear local state**.
+
 A version is hosted on [GitHub pages](https://penguinofthunder.github.io/stepscalc/).
 
 ## Localization
 
 The calculator is localized with i18next.
 
-The English and Norwegian translations were hand-translated by the author, however the Spanish was translated by Copilot.
+The English and Norwegian translations were hand-translated by the author, however the German, French, and Spanish was translated by Copilot. Contributions from human translators are welcome.
 
 ## Development
 
